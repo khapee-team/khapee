@@ -183,3 +183,53 @@ petpoojaRouter.post('/:secret/callback', (req: any, res) => {
   if (!moved.ok) return res.status(400).json({ success: '0', message: moved.error })
   res.json({ success: '1', message: 'Callback received successfully' })
 })
+
+/* --- What they actually asked for ------------------------------------------- */
+
+/**
+ * The last few requests that matched nothing.
+ *
+ * Petpooja's Menu Trigger reported a 404 against endpoints that answer 200 to
+ * curl, and their error panel shows the payload rather than the URL, so there
+ * was no way to tell which of the two sides was wrong. This keeps the method
+ * and path of anything that reaches /api/petpooja and finds no route, which
+ * turns "it 404s" into a sentence naming the path.
+ *
+ * In memory and only the last twenty: it is a diagnostic for a configuration
+ * being set up, not a log, and it should cost nothing once that is done.
+ */
+const unmatched: { at: string; method: string; url: string }[] = []
+
+/** Everything known about a sandbox link's recent traffic, for debugging a setup. */
+petpoojaRouter.get('/:secret/diag', (req: any, res) => {
+  const link = linkFrom(req, res)
+  if (!link) return
+  if (!link.sandbox) return res.status(403).json({ success: '0', message: 'Not a sandbox link.' })
+  const row = db
+    .prepare('SELECT last_menu_at, last_order_at, last_error, length(last_menu_json) AS menu_bytes FROM petpooja_links WHERE id = ?')
+    .get(link.id) as any
+  res.json({
+    success: '1',
+    restId: link.restId,
+    enabled: link.enabled,
+    sandbox: link.sandbox,
+    lastMenuAt: row?.last_menu_at ?? null,
+    lastOrderAt: row?.last_order_at ?? null,
+    lastError: row?.last_error ?? '',
+    menuBytes: row?.menu_bytes ?? 0,
+    unmatched,
+  })
+})
+
+/*
+ * Last in the file, so it only sees what every route above declined. Express
+ * answers a 404 for a path that exists under another method as readily as for
+ * one that does not exist at all, and those are very different mistakes.
+ */
+// '/*' and not '/{*splat}': this is Express 4, where the braced form is not a
+// wildcard but a literal, and a catch-all that catches nothing fails silently.
+petpoojaRouter.all('/*', (req, res) => {
+  unmatched.push({ at: new Date().toISOString(), method: req.method, url: req.originalUrl })
+  if (unmatched.length > 20) unmatched.shift()
+  res.status(404).json({ success: '0', message: `No route for ${req.method} ${req.path}` })
+})
