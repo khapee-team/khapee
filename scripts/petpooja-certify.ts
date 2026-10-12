@@ -114,9 +114,18 @@ const taxes = new Map<string, { name: string; rateBp: number }>(
 )
 const on = (v: unknown) => String(v ?? '1') !== '0'
 const paise = (v: unknown) => Math.round(Number(v ?? 0) * 100)
-const live = items.filter((i) => on(i.active) && String(i.in_stock ?? '2') !== '0')
 const taxed = (i: any) => String(i.item_tax ?? '').split(',').some((id) => taxes.has(id.trim()))
 const variations = (i: any) => (Array.isArray(i.variation) ? i.variation.filter((v: any) => on(v.active)) : [])
+/*
+ * A dish that can actually be charged for.
+ *
+ * Petpooja's sandbox menu has eighty-one items priced at zero that declare
+ * variations and carry none, which is what a half-exported menu looks like
+ * from this side. An order for one of them would be an order for nothing, and
+ * it would be certified as correct.
+ */
+const sellable = (i: any) => paise(i.price) > 0 || variations(i).some((v: any) => paise(v.price) > 0)
+const live = items.filter((i) => on(i.active) && String(i.in_stock ?? '2') !== '0' && sellable(i))
 const addonLinks = (list: any) => (Array.isArray(list) ? list : []).filter((a: any) => groups.has(String(a.addon_group_id)))
 
 /** The cheapest valid add-ons for a set of add-on links, honouring each minimum (at least one). */
@@ -162,8 +171,20 @@ function line(item: any, opts: { variation?: any; addons?: any[]; quantity?: num
 
 /* --- The five scenarios ------------------------------------------------------- */
 
-const plain = live.find((i) => taxed(i) && !variations(i).length && !addonLinks(i.addon).length) ?? live.find((i) => !variations(i).length)
-const withAddon = live.find((i) => !variations(i).length && on(i.itemallowaddon) && addonLinks(i.addon).length)
+/*
+ * Case 1 wants a dish and its tax, nothing else. A menu where every priced
+ * item also offers add-ons — which is every priced item in their sandbox — is
+ * still fine for it: the add-ons are simply not ordered. Preferring one with
+ * none keeps the case clean where the menu allows.
+ */
+const plain =
+  live.find((i) => taxed(i) && !variations(i).length && !addonLinks(i.addon).length) ??
+  live.find((i) => taxed(i) && !variations(i).length) ??
+  live.find((i) => !variations(i).length)
+// A different dish from case 1 where there is one, so the two cases do not read as the same order twice.
+const withAddon =
+  live.find((i) => i !== plain && !variations(i).length && on(i.itemallowaddon) && addonLinks(i.addon).length) ??
+  live.find((i) => !variations(i).length && on(i.itemallowaddon) && addonLinks(i.addon).length)
 const withVariation = live.find((i) => variations(i).some((v: any) => !addonLinks(v.addon).some((a: any) => Number(a.addon_item_selection_min) > 0)))
 const withBoth =
   live.find((i) => variations(i).some((v: any) => addonLinks(v.addon).length)) ??
