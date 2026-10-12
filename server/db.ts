@@ -727,6 +727,15 @@ CREATE INDEX IF NOT EXISTS idx_petpooja_rest ON petpooja_links(rest_id);
  * one copy that definitely exists is the one that already arrived here.
  */
 addColumn('petpooja_links', 'last_menu_json', 'TEXT')
+/*
+ * Whether this link points at Petpooja's sandbox rather than a real till.
+ *
+ * A sandbox push is kept and not applied: their test restaurant serves rice
+ * bowls and momos, and the cafe the link hangs off serves neither. Applying it
+ * would add a hundred dishes nobody sells to a menu customers are reading,
+ * which is a worse outcome than any amount of certification is worth.
+ */
+addColumn('petpooja_links', 'sandbox', 'INTEGER NOT NULL DEFAULT 0')
 
 /**
  * The other system's ids, kept beside our own.
@@ -1647,7 +1656,9 @@ const SANDBOX_WEBHOOK = { slug: 'mr-beans-saket', restId: '31zqndu7ar', secret: 
 {
   const cafe = db.prepare('SELECT id FROM restaurants WHERE slug = ?').get(SANDBOX_WEBHOOK.slug) as any
   if (cafe) {
-    const link = db.prepare('SELECT id, webhook_secret, enabled FROM petpooja_links WHERE restaurant_id = ?').get(cafe.id) as any
+    const link = db
+      .prepare('SELECT id, webhook_secret, enabled, sandbox FROM petpooja_links WHERE restaurant_id = ?')
+      .get(cafe.id) as any
     if (!link) {
       /*
        * enabled = 1, push_orders = 0.
@@ -1659,8 +1670,8 @@ const SANDBOX_WEBHOOK = { slug: 'mr-beans-saket', restId: '31zqndu7ar', secret: 
        * their till, and that stays off — this cafe is closed and certifying.
        */
       db.prepare(
-        `INSERT INTO petpooja_links (restaurant_id, rest_id, webhook_secret, enabled, push_orders)
-         VALUES (?, ?, ?, 1, 0)`,
+        `INSERT INTO petpooja_links (restaurant_id, rest_id, webhook_secret, enabled, push_orders, sandbox)
+         VALUES (?, ?, ?, 1, 0, 1)`,
       ).run(cafe.id, SANDBOX_WEBHOOK.restId, SANDBOX_WEBHOOK.secret)
       console.log('[petpooja] sandbox link created for', SANDBOX_WEBHOOK.slug)
       /*
@@ -1670,8 +1681,8 @@ const SANDBOX_WEBHOOK = { slug: 'mr-beans-saket', restId: '31zqndu7ar', secret: 
        * leaving the link permanently off with no way for a later deploy to
        * notice. A reconciler has to compare everything it sets.
        */
-    } else if (link.webhook_secret !== SANDBOX_WEBHOOK.secret || !link.enabled) {
-      db.prepare('UPDATE petpooja_links SET rest_id = ?, webhook_secret = ?, enabled = 1 WHERE id = ?').run(
+    } else if (link.webhook_secret !== SANDBOX_WEBHOOK.secret || !link.enabled || !link.sandbox) {
+      db.prepare('UPDATE petpooja_links SET rest_id = ?, webhook_secret = ?, enabled = 1, sandbox = 1 WHERE id = ?').run(
         SANDBOX_WEBHOOK.restId,
         SANDBOX_WEBHOOK.secret,
         link.id,

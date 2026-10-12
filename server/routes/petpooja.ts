@@ -53,12 +53,24 @@ petpoojaRouter.post('/:secret/menu', (req: any, res) => {
   const link = linkFrom(req, res)
   if (!link) return
   try {
-    const result = applyMenuPush(link, req.body ?? {})
     // Kept whole, for certification — see the column's note in server/db.ts.
     db.prepare('UPDATE petpooja_links SET last_menu_json = ? WHERE id = ?').run(
       JSON.stringify(req.body ?? {}),
       link.id,
     )
+    /*
+     * A sandbox push is recorded and not applied. Petpooja's test restaurant
+     * sells rice bowls and momos; the cafe this link hangs off sells neither,
+     * and its menu is on the internet being read. Answering success is honest
+     * — the push arrived and was understood — and the payload is kept, which
+     * is the only thing certification actually needs from it.
+     */
+    if (link.sandbox) {
+      const n = Array.isArray((req.body ?? {}).items) ? (req.body as any).items.length : 0
+      db.prepare("UPDATE petpooja_links SET last_menu_at = datetime('now'), last_error = '' WHERE id = ?").run(link.id)
+      return res.json({ success: '1', message: `Menu received: ${n} items recorded for certification.` })
+    }
+    const result = applyMenuPush(link, req.body ?? {})
     res.json({
       success: '1',
       message: `Menu updated: ${result.items} items, ${result.categories} new sections, ${result.retired} taken off.`,
@@ -67,6 +79,29 @@ petpoojaRouter.post('/:secret/menu', (req: any, res) => {
     db.prepare('UPDATE petpooja_links SET last_error = ? WHERE id = ?').run(String(e?.message ?? e).slice(0, 400), link.id)
     res.status(400).json({ success: '0', message: 'Menu could not be applied.' })
   }
+})
+
+/**
+ * The last sandbox push, read back.
+ *
+ * Certification has to quote Petpooja's own item, add-on and variation ids,
+ * and the only copy of them is whatever their Menu Trigger delivered to the
+ * endpoint above. The dashboard would be the obvious place to read it, except
+ * that nobody can sign in to this cafe yet, which is the circumstance this
+ * whole sandbox link was pinned for in the first place.
+ *
+ * Only ever a sandbox link: a real cafe's menu, with the POS ids that address
+ * its till, is not something a URL in a git repository should hand out.
+ */
+petpoojaRouter.get('/:secret/last-menu', (req: any, res) => {
+  const link = linkFrom(req, res)
+  if (!link) return
+  if (!link.sandbox) return res.status(403).json({ success: '0', message: 'Not a sandbox link.' })
+  const row = db.prepare('SELECT last_menu_json, last_menu_at FROM petpooja_links WHERE id = ?').get(link.id) as any
+  if (!row?.last_menu_json) {
+    return res.json({ success: '0', message: 'No menu has been pushed to this endpoint yet.' })
+  }
+  res.type('application/json').send(row.last_menu_json)
 })
 
 /**

@@ -68,6 +68,17 @@ export type Link = {
   webhookSecret: string
   enabled: boolean
   pushOrders: boolean
+  /**
+   * A link pointed at Petpooja's sandbox rather than at the café's own till.
+   *
+   * The sandbox restaurant is a demonstration — rice bowls, momos, tandoori —
+   * and has nothing to do with the café the link is attached to. Its menu push
+   * is still worth receiving, because it is the only way to learn the item and
+   * add-on ids certification has to quote, but applying it would put a hundred
+   * invented dishes on a menu real customers are reading. So a sandbox push is
+   * kept and not applied.
+   */
+  sandbox: boolean
   lastMenuAt: string | null
   lastOrderAt: string | null
   lastError: string
@@ -86,6 +97,7 @@ function shapeLink(row: any): Link {
     webhookSecret: row.webhook_secret,
     enabled: !!row.enabled,
     pushOrders: !!row.push_orders,
+    sandbox: !!row.sandbox,
     lastMenuAt: row.last_menu_at ?? null,
     lastOrderAt: row.last_order_at ?? null,
     lastError: row.last_error ?? '',
