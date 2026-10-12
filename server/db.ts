@@ -1573,6 +1573,32 @@ dataFix('2026-10-04-revery-no-cash', () => {
   db.prepare("UPDATE restaurants SET cash_disabled = 1 WHERE slug = 'revery'").run()
 })
 
+/*
+ * Khapee's own account can administer Mr. Beans — Saket.
+ *
+ * Needed to finish the Petpooja integration: the webhook URLs Petpooja has to
+ * be given are on that cafe's own settings screen, and nobody could open it.
+ * KHAPEE_OWNER_EMAILS covers insights and alerts, not a restaurant's settings,
+ * so being the owner of the whole app did not help.
+ *
+ * Added as staff rather than by widening what an owner may do — one cafe,
+ * named, and visible in its own staff list, instead of a rule that quietly
+ * gives one address the keys to every kitchen on the platform.
+ */
+dataFix('2026-10-12-khapee-admin-on-saket', () => {
+  const user = db.prepare("SELECT id FROM users WHERE lower(email) = 'siyaagrawal292@gmail.com'").get() as any
+  const cafe = db.prepare("SELECT id FROM restaurants WHERE slug = 'mr-beans-saket'").get() as any
+  if (!user || !cafe) return
+  const already = db
+    .prepare('SELECT 1 FROM restaurant_staff WHERE user_id = ? AND restaurant_id = ?')
+    .get(user.id, cafe.id)
+  if (already) return
+  db.prepare("INSERT INTO restaurant_staff (user_id, restaurant_id, job_title) VALUES (?, ?, 'Owner')").run(
+    user.id,
+    cafe.id,
+  )
+})
+
 /* Revery gives a scratch card on every order. Theirs to turn down. */
 dataFix('2026-10-10-revery-scratch-every-order', () => {
   db.prepare("UPDATE restaurants SET scratch_every = 1 WHERE slug = 'revery'").run()
