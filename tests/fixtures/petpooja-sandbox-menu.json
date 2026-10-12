@@ -1,0 +1,133 @@
+{
+  "success": "1",
+  "taxes": [
+    {
+      "taxid": "11213",
+      "taxname": "CGST",
+      "tax": "2.5",
+      "taxtype": "1",
+      "active": "1"
+    },
+    {
+      "taxid": "20375",
+      "taxname": "SGST",
+      "tax": "2.5",
+      "taxtype": "1",
+      "active": "1"
+    }
+  ],
+  "addongroups": [
+    {
+      "addongroupid": "901",
+      "addongroup_name": "Extras",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "9011",
+          "addonitem_name": "Extra Cheese",
+          "addonitem_price": "50",
+          "active": "1"
+        },
+        {
+          "addonitemid": "9012",
+          "addonitem_name": "Olives",
+          "addonitem_price": "30",
+          "active": "1"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "itemid": "101",
+      "itemname": "Margherita Pizza",
+      "price": "250",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "itemallowvariation": "0",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "102",
+      "itemname": "Garlic Bread",
+      "price": "120",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "itemallowvariation": "0",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "901",
+          "addon_item_selection_min": "1",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "103",
+      "itemname": "Cold Coffee",
+      "price": "0",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "itemallowvariation": "1",
+      "variation": [
+        {
+          "id": "5001",
+          "variationid": "7001",
+          "name": "Regular",
+          "price": "140",
+          "active": "1",
+          "groupname": "Size"
+        },
+        {
+          "id": "5002",
+          "variationid": "7002",
+          "name": "Large",
+          "price": "180",
+          "active": "1",
+          "groupname": "Size"
+        }
+      ],
+      "addon": []
+    },
+    {
+      "itemid": "104",
+      "itemname": "Loaded Fries",
+      "price": "0",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "itemallowvariation": "1",
+      "variation": [
+        {
+          "id": "5003",
+          "variationid": "7003",
+          "name": "Half",
+          "price": "150",
+          "active": "1",
+          "groupname": "Size"
+        },
+        {
+          "id": "5004",
+          "variationid": "7004",
+          "name": "Full",
+          "price": "220",
+          "active": "1",
+          "groupname": "Size"
+        }
+      ],
+      "addon": [
+        {
+          "addon_group_id": "901",
+          "addon_item_selection_min": "1",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    }
+  ],
+  "_readme": "A stand-in for the menu Petpooja pushes, in their push shape. Not their data: it exists so scripts/petpooja-certify.ts --dry-run can build all five certification payloads before the sandbox has been logged into, which is the only part of certification that does not need their credentials. Four items between them cover every case they ask for: one plain, one with an add-on group, one with variations, and one with both."
+}
