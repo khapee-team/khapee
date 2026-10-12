@@ -1621,6 +1621,50 @@ for (const grant of GRANTS) {
   console.log(`[access] ${grant.email} can now administer ${grant.slug}`)
 }
 
+/*
+ * Mr. Beans — Saket's Petpooja webhook path, fixed rather than generated.
+ *
+ * The path IS the secret for these endpoints: Petpooja's webhooks carry no
+ * authentication of any kind, so each restaurant gets an unguessable URL and
+ * the restID in the body is checked against it.
+ *
+ * Normally that path is random and read off the restaurant's own settings
+ * screen. Nobody can open that screen — every route into the account is shut
+ * (no password, no reset without SMTP, no Google client ID) — and the
+ * integration cannot wait on it. So this one is written down here, which puts
+ * it in the repository.
+ *
+ * That is a real trade and it is made deliberately, for a sandbox cafe that
+ * is closed, relays no orders, and exists to be certified against Petpooja's
+ * test environment. ROTATE IT BEFORE THIS CAFE TAKES A REAL ORDER: clear
+ * webhook_secret on its petpooja_links row and the next saveLink mints a
+ * fresh one that lives nowhere but the database.
+ *
+ * Boot-time and idempotent, like the access grants above: the row may not
+ * exist yet when this first runs.
+ */
+const SANDBOX_WEBHOOK = { slug: 'mr-beans-saket', restId: '31zqndu7ar', secret: 'y5mXYWiaJAGKtkGjxHumvZKsqwugF9bZ' }
+{
+  const cafe = db.prepare('SELECT id FROM restaurants WHERE slug = ?').get(SANDBOX_WEBHOOK.slug) as any
+  if (cafe) {
+    const link = db.prepare('SELECT id, webhook_secret FROM petpooja_links WHERE restaurant_id = ?').get(cafe.id) as any
+    if (!link) {
+      db.prepare(
+        `INSERT INTO petpooja_links (restaurant_id, rest_id, webhook_secret, enabled, push_orders)
+         VALUES (?, ?, ?, 0, 0)`,
+      ).run(cafe.id, SANDBOX_WEBHOOK.restId, SANDBOX_WEBHOOK.secret)
+      console.log('[petpooja] sandbox link created for', SANDBOX_WEBHOOK.slug)
+    } else if (link.webhook_secret !== SANDBOX_WEBHOOK.secret) {
+      db.prepare('UPDATE petpooja_links SET rest_id = ?, webhook_secret = ? WHERE id = ?').run(
+        SANDBOX_WEBHOOK.restId,
+        SANDBOX_WEBHOOK.secret,
+        link.id,
+      )
+      console.log('[petpooja] sandbox webhook path pinned for', SANDBOX_WEBHOOK.slug)
+    }
+  }
+}
+
 /* Revery gives a scratch card on every order. Theirs to turn down. */
 dataFix('2026-10-10-revery-scratch-every-order', () => {
   db.prepare("UPDATE restaurants SET scratch_every = 1 WHERE slug = 'revery'").run()
