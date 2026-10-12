@@ -1647,7 +1647,7 @@ const SANDBOX_WEBHOOK = { slug: 'mr-beans-saket', restId: '31zqndu7ar', secret: 
 {
   const cafe = db.prepare('SELECT id FROM restaurants WHERE slug = ?').get(SANDBOX_WEBHOOK.slug) as any
   if (cafe) {
-    const link = db.prepare('SELECT id, webhook_secret FROM petpooja_links WHERE restaurant_id = ?').get(cafe.id) as any
+    const link = db.prepare('SELECT id, webhook_secret, enabled FROM petpooja_links WHERE restaurant_id = ?').get(cafe.id) as any
     if (!link) {
       /*
        * enabled = 1, push_orders = 0.
@@ -1663,7 +1663,14 @@ const SANDBOX_WEBHOOK = { slug: 'mr-beans-saket', restId: '31zqndu7ar', secret: 
          VALUES (?, ?, ?, 1, 0)`,
       ).run(cafe.id, SANDBOX_WEBHOOK.restId, SANDBOX_WEBHOOK.secret)
       console.log('[petpooja] sandbox link created for', SANDBOX_WEBHOOK.slug)
-    } else if (link.webhook_secret !== SANDBOX_WEBHOOK.secret) {
+      /*
+       * Checked on `enabled` as well as the secret, which is what went wrong
+       * the first time: the row was created with the right path but disabled,
+       * and an update guarded only on the secret then matched and skipped —
+       * leaving the link permanently off with no way for a later deploy to
+       * notice. A reconciler has to compare everything it sets.
+       */
+    } else if (link.webhook_secret !== SANDBOX_WEBHOOK.secret || !link.enabled) {
       db.prepare('UPDATE petpooja_links SET rest_id = ?, webhook_secret = ?, enabled = 1 WHERE id = ?').run(
         SANDBOX_WEBHOOK.restId,
         SANDBOX_WEBHOOK.secret,
