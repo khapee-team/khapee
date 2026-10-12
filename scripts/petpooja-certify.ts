@@ -53,6 +53,24 @@ if (!dryRun && (!appKey || !appSecret || !accessToken)) {
 async function loadMenu(): Promise<any> {
   const file = flag('--menu')
   if (file) return JSON.parse(fs.readFileSync(file, 'utf8'))
+  /*
+   * The menu Petpooja last pushed to us, if they have.
+   *
+   * Preferred over asking for it, because their Fetch Menu API answers
+   * "unable to fetch Object from s3 bucket" until a menu has been generated
+   * at their end — and the push is what generates it. The copy that arrived
+   * here is the one that definitely exists.
+   */
+  if (!args.includes('--fetch-menu')) {
+    const { db } = await import('../server/db.ts')
+    const row = db
+      .prepare('SELECT last_menu_json FROM petpooja_links WHERE rest_id = ?')
+      .get(restId) as any
+    if (row?.last_menu_json) {
+      console.log('  Using the menu Petpooja last pushed to Khapee.\n')
+      return JSON.parse(row.last_menu_json)
+    }
+  }
   const res = await fetch(`${base}/mapped_restaurant_menus`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'app-key': appKey, 'app-secret': appSecret, 'access-token': accessToken },
@@ -61,7 +79,10 @@ async function loadMenu(): Promise<any> {
   const body: any = await res.json().catch(() => null)
   if (!res.ok || !body || String(body.success ?? '1') === '0') {
     console.error(`\n  Could not fetch the sandbox menu: ${body?.message ?? `HTTP ${res.status}`}`)
-    console.error('  Save the menu Petpooja pushes as JSON and pass it with --menu file.json.\n')
+    console.error('  That message means no menu has been generated for this restID yet.')
+    console.error('  Trigger Push Menu on the sandbox dashboard (Menu Management) and run this')
+    console.error('  again — the pushed menu is kept and used automatically. Or pass one with')
+    console.error('  --menu file.json.\n')
     process.exit(1)
   }
   return body

@@ -54,6 +54,11 @@ petpoojaRouter.post('/:secret/menu', (req: any, res) => {
   if (!link) return
   try {
     const result = applyMenuPush(link, req.body ?? {})
+    // Kept whole, for certification — see the column's note in server/db.ts.
+    db.prepare('UPDATE petpooja_links SET last_menu_json = ? WHERE id = ?').run(
+      JSON.stringify(req.body ?? {}),
+      link.id,
+    )
     res.json({
       success: '1',
       message: `Menu updated: ${result.items} items, ${result.categories} new sections, ${result.retired} taken off.`,

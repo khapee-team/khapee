@@ -32,3 +32,9 @@ deploy/.env
 # The live database when backups are on (scripts/start.sh) and the backup tool.
 data/live/
 bin/
+
+# Petpooja sandbox credentials, kept out of the repo. The three tokens from
+# their Configuration page go here so the certification script can read them
+# without anyone pasting them into a chat, a commit or a shell history.
+.env.petpooja
+.env.local

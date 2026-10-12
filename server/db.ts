@@ -514,6 +514,7 @@ addColumn('restaurants', 'cash_disabled', 'INTEGER NOT NULL DEFAULT 0')
  */
 addColumn('restaurants', 'scratch_every', 'INTEGER NOT NULL DEFAULT 0')
 
+
 /* What a scratch card took off this order, and which card it was. */
 addColumn('orders', 'discount_cents', 'INTEGER NOT NULL DEFAULT 0')
 addColumn('orders', 'scratch_card_id', 'INTEGER')
@@ -715,6 +716,17 @@ CREATE TABLE IF NOT EXISTS petpooja_links (
 );
 CREATE INDEX IF NOT EXISTS idx_petpooja_rest ON petpooja_links(rest_id);
 `)
+/*
+ * The last menu Petpooja pushed, exactly as they sent it.
+ *
+ * applyMenuPush reads the payload and throws it away, which is right for the
+ * menu itself — the rows it wrote are the menu now. But certification builds
+ * its five test orders out of Petpooja's own item, variation and add-on IDs,
+ * and their Fetch Menu API answers "unable to fetch Object from s3 bucket"
+ * until a menu has been generated at their end. Keeping the push means the
+ * one copy that definitely exists is the one that already arrived here.
+ */
+addColumn('petpooja_links', 'last_menu_json', 'TEXT')
 
 /**
  * The other system's ids, kept beside our own.
