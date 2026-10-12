@@ -1649,13 +1649,22 @@ const SANDBOX_WEBHOOK = { slug: 'mr-beans-saket', restId: '31zqndu7ar', secret: 
   if (cafe) {
     const link = db.prepare('SELECT id, webhook_secret FROM petpooja_links WHERE restaurant_id = ?').get(cafe.id) as any
     if (!link) {
+      /*
+       * enabled = 1, push_orders = 0.
+       *
+       * Two different switches, and the first one is not what it sounds like:
+       * `enabled` is what makes the inbound webhooks answer at all, so a link
+       * created disabled 404s every call Petpooja makes to it. `push_orders`
+       * is the one that decides whether a real Khapee order is relayed to
+       * their till, and that stays off — this cafe is closed and certifying.
+       */
       db.prepare(
         `INSERT INTO petpooja_links (restaurant_id, rest_id, webhook_secret, enabled, push_orders)
-         VALUES (?, ?, ?, 0, 0)`,
+         VALUES (?, ?, ?, 1, 0)`,
       ).run(cafe.id, SANDBOX_WEBHOOK.restId, SANDBOX_WEBHOOK.secret)
       console.log('[petpooja] sandbox link created for', SANDBOX_WEBHOOK.slug)
     } else if (link.webhook_secret !== SANDBOX_WEBHOOK.secret) {
-      db.prepare('UPDATE petpooja_links SET rest_id = ?, webhook_secret = ? WHERE id = ?').run(
+      db.prepare('UPDATE petpooja_links SET rest_id = ?, webhook_secret = ?, enabled = 1 WHERE id = ?').run(
         SANDBOX_WEBHOOK.restId,
         SANDBOX_WEBHOOK.secret,
         link.id,
