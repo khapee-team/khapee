@@ -1,11 +1,23 @@
 {
   "success": "1",
+  "restaurants": [
+    {
+      "details": {
+        "restaurantname": "Mr. Beans - Saket",
+        "address": "Saket, Indore",
+        "city": "Indore",
+        "state": "Madhya Pradesh",
+        "country": "India"
+      }
+    }
+  ],
   "taxes": [
     {
       "taxid": "11213",
       "taxname": "CGST",
       "tax": "2.5",
       "taxtype": "1",
+      "tax_ordertype": "1,2,3",
       "active": "1"
     },
     {
@@ -13,25 +25,249 @@
       "taxname": "SGST",
       "tax": "2.5",
       "taxtype": "1",
+      "tax_ordertype": "1,2,3",
       "active": "1"
     }
   ],
   "addongroups": [
     {
-      "addongroupid": "901",
-      "addongroup_name": "Extras",
+      "addongroupid": "9001",
+      "addongroup_name": "Add on",
+      "addongroup_rank": "1",
       "active": "1",
       "addongroupitems": [
         {
-          "addonitemid": "9011",
-          "addonitem_name": "Extra Cheese",
-          "addonitem_price": "50",
+          "addonitemid": "90011",
+          "addonitem_name": "Choice of vegetable",
+          "addonitem_price": "60",
+          "addonitem_rank": "1",
           "active": "1"
         },
         {
-          "addonitemid": "9012",
-          "addonitem_name": "Olives",
-          "addonitem_price": "30",
+          "addonitemid": "90012",
+          "addonitem_name": "Bacon rashers",
+          "addonitem_price": "170",
+          "addonitem_rank": "2",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90013",
+          "addonitem_name": "Chicken sausage / chicken salami",
+          "addonitem_price": "170",
+          "addonitem_rank": "3",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90014",
+          "addonitem_name": "Chicken breast",
+          "addonitem_price": "185",
+          "addonitem_rank": "4",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9002",
+      "addongroup_name": "Avocado",
+      "addongroup_rank": "2",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90021",
+          "addonitem_name": "Avocado",
+          "addonitem_price": "165",
+          "addonitem_rank": "1",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9003",
+      "addongroup_name": "Add cheese",
+      "addongroup_rank": "3",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90031",
+          "addonitem_name": "Cheddar cheese",
+          "addonitem_price": "80",
+          "addonitem_rank": "1",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9004",
+      "addongroup_name": "Add lavash",
+      "addongroup_rank": "4",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90041",
+          "addonitem_name": "Lavash",
+          "addonitem_price": "50",
+          "addonitem_rank": "1",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9005",
+      "addongroup_name": "Add chicken",
+      "addongroup_rank": "5",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90051",
+          "addonitem_name": "Grilled chicken",
+          "addonitem_price": "185",
+          "addonitem_rank": "1",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9006",
+      "addongroup_name": "Choose your base",
+      "addongroup_rank": "6",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90061",
+          "addonitem_name": "Pala Romano sourdough crust",
+          "addonitem_price": "150",
+          "addonitem_rank": "1",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9007",
+      "addongroup_name": "Add eggs",
+      "addongroup_rank": "7",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90071",
+          "addonitem_name": "Eggs",
+          "addonitem_price": "100",
+          "addonitem_rank": "1",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9008",
+      "addongroup_name": "Add on",
+      "addongroup_rank": "8",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90081",
+          "addonitem_name": "Chicken",
+          "addonitem_price": "185",
+          "addonitem_rank": "1",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90082",
+          "addonitem_name": "One vegetable",
+          "addonitem_price": "80",
+          "addonitem_rank": "2",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9009",
+      "addongroup_name": "Add on",
+      "addongroup_rank": "9",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90091",
+          "addonitem_name": "Grilled chicken",
+          "addonitem_price": "185",
+          "addonitem_rank": "1",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90092",
+          "addonitem_name": "Guacamole",
+          "addonitem_price": "160",
+          "addonitem_rank": "2",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9010",
+      "addongroup_name": "Add on",
+      "addongroup_rank": "10",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90101",
+          "addonitem_name": "Chicken",
+          "addonitem_price": "185",
+          "addonitem_rank": "1",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90102",
+          "addonitem_name": "Fish",
+          "addonitem_price": "265",
+          "addonitem_rank": "2",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90103",
+          "addonitem_name": "Prawns",
+          "addonitem_price": "370",
+          "addonitem_rank": "3",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90104",
+          "addonitem_name": "Tofu",
+          "addonitem_price": "185",
+          "addonitem_rank": "4",
+          "active": "1"
+        }
+      ]
+    },
+    {
+      "addongroupid": "9011",
+      "addongroup_name": "Add to beverage",
+      "addongroup_rank": "11",
+      "active": "1",
+      "addongroupitems": [
+        {
+          "addonitemid": "90111",
+          "addonitem_name": "Choice of any flavour",
+          "addonitem_price": "40",
+          "addonitem_rank": "1",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90112",
+          "addonitem_name": "Ice cream / whipped cream",
+          "addonitem_price": "40",
+          "addonitem_rank": "2",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90113",
+          "addonitem_name": "Chocolate sauce (30 ml)",
+          "addonitem_price": "40",
+          "addonitem_rank": "3",
+          "active": "1"
+        },
+        {
+          "addonitemid": "90114",
+          "addonitem_name": "Almond milk / soya milk",
+          "addonitem_price": "60",
+          "addonitem_rank": "4",
           "active": "1"
         }
       ]
@@ -39,95 +275,2897 @@
   ],
   "items": [
     {
-      "itemid": "101",
-      "itemname": "Margherita Pizza",
-      "price": "250",
+      "itemid": "10001",
+      "itemname": "Butter Croissants",
+      "itemdescription": "Freshly baked from The Gourmet Store Bakery",
+      "price": "300",
       "active": "1",
       "in_stock": "2",
       "item_tax": "11213,20375",
+      "item_categoryid": "Freshly Baked",
       "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
       "variation": [],
       "addon": []
     },
     {
-      "itemid": "102",
-      "itemname": "Garlic Bread",
-      "price": "120",
+      "itemid": "10002",
+      "itemname": "Chocolate Croissants",
+      "itemdescription": "Freshly baked from The Gourmet Store Bakery",
+      "price": "300",
       "active": "1",
       "in_stock": "2",
       "item_tax": "11213,20375",
+      "item_categoryid": "Freshly Baked",
       "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10003",
+      "itemname": "Fried Eggs",
+      "itemdescription": "2 eggs pan fried to your liking. Served with a slice of toasted sourdough.",
+      "price": "350",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Eggs, Eggs & More Eggs",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "24",
       "variation": [],
       "addon": [
         {
-          "addon_group_id": "901",
-          "addon_item_selection_min": "1",
+          "addon_group_id": "9002",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        },
+        {
+          "addon_group_id": "9001",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10004",
+      "itemname": "Gordon Ramsay's Creamy Scrambled Egg",
+      "itemdescription": "A creamy amalgamation of eggs & butter. Served with a slice of toasted sourdough.",
+      "price": "425",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Eggs, Eggs & More Eggs",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "24",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9001",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10005",
+      "itemname": "Pickled Omelette",
+      "itemdescription": "Gherkins, jalapenos & onions in an omelette make an interesting choice. Served with toasted sourdough.",
+      "price": "425",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Eggs, Eggs & More Eggs",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "24",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9001",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10006",
+      "itemname": "French Rolled Omelette",
+      "itemdescription": "Sundried tomato, spinach, spring onions & cheddar cheese make it a perfect breakfast. Served with toasted sourdough.",
+      "price": "425",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Eggs, Eggs & More Eggs",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "24",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9001",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10007",
+      "itemname": "Classic Indian Masala Omelette",
+      "itemdescription": "Tomatoes, onion, green chillies & coriander are always a perfect choice. Served with toasted sourdough.",
+      "price": "425",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Eggs, Eggs & More Eggs",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "24",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9001",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10008",
+      "itemname": "Omelette Verde",
+      "itemdescription": "Our signature omelette with basil leaves & cream cheese. Served with toasted sourdough.",
+      "price": "425",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Eggs, Eggs & More Eggs",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "24",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9001",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10009",
+      "itemname": "Gourmet Mushroom & Ricotta Omelette",
+      "itemdescription": "Ricotta omelette stuffed with mushroom à la crème with hints of truffle. Served with toasted sourdough.",
+      "price": "475",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Eggs, Eggs & More Eggs",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "24",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9001",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10010",
+      "itemname": "Peri Peri, Red Pepper & Chicken Piquant Omelette",
+      "itemdescription": "Omelette stuffed with pesto calabrese, parmesan cheese & spicy chicken sausages. Served with toasted sourdough.",
+      "price": "475",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Eggs, Eggs & More Eggs",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9001",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10011",
+      "itemname": "Classic Tomato Bruschetta",
+      "itemdescription": "Tomato, garlic & basil on crisp sourdough bread",
+      "price": "450",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Tartine, Toasty & Flat Breads",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10012",
+      "itemname": "Creamy Mushroom Tartine",
+      "itemdescription": "Crisp sourdough topped with creamy mushroom mince & cheese",
+      "price": "450",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Tartine, Toasty & Flat Breads",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10013",
+      "itemname": "Crisp Green Avocado Cucumber Tartine",
+      "itemdescription": "Avocado, cucumber, lettuce & feta cheese make it special",
+      "price": "575",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Tartine, Toasty & Flat Breads",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10014",
+      "itemname": "Cold Japanese Avocado Flat Bread",
+      "itemdescription": "Multigrain flat bread, avocado carpaccio & wasabi make it a house special",
+      "price": "850",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Tartine, Toasty & Flat Breads",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10015",
+      "itemname": "Burrata, Grilled Pepper, Olives & Herbs on a Flat Bread",
+      "itemdescription": "Multigrain flat bread topped with goodness",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Tartine, Toasty & Flat Breads",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10016",
+      "itemname": "Korean Cream Cheese Bun",
+      "itemdescription": "Brioche infused with herb garlic butter with a layer of cream cheese",
+      "price": "450",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Tartine, Toasty & Flat Breads",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10017",
+      "itemname": "Garlic Bread",
+      "itemdescription": "Crispy pieces of bread topped with spicy garlic butter",
+      "price": "350",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Tartine, Toasty & Flat Breads",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9003",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10018",
+      "itemname": "Desi Chilli Cheese Toast",
+      "itemdescription": "A crisp toast of cheese, green chillies & coriander",
+      "price": "400",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Tartine, Toasty & Flat Breads",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10019",
+      "itemname": "Fresh Green Goodness",
+      "itemdescription": "Avocado hummus served with cucumbers, onions, broccoli & feta cheese",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9004",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10020",
+      "itemname": "Thai Tri Quinoa Salad",
+      "itemdescription": "Quinoa with sweet & sour dressing, corn, edamame & peppers",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10021",
+      "itemname": "Avocado Chicken Salad",
+      "itemdescription": "Tangy, creamy avocado served with smoked chicken & crispy greens",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10022",
+      "itemname": "Beirut on a Platter",
+      "itemdescription": "Tahini yogurt topped with roasted beetroot, onion, apples, feta & pecans",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9004",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10023",
+      "itemname": "Wellness Boost",
+      "itemdescription": "Avocado, greens, cherry tomato, broccoli, seeds & nuts make this a bowl of health with a lemon vinaigrette",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9005",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10024",
+      "itemname": "Super Food Quinoa Tabouleh",
+      "itemdescription": "Chia, sunflower seeds, cranberry, walnuts, micro greens & quinoa tossed in an emulsion of lemon & sumac",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9005",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10025",
+      "itemname": "Spring Greens & Orange Feta Salad",
+      "itemdescription": "Romaine lettuce, basil & iceberg lettuce served with orange segments & apricots in an orange feta dressing",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9005",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10026",
+      "itemname": "Caesar Salad",
+      "itemdescription": "Fresh salad greens & Caesar dressing topped with parmesan & croutons",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9005",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10027",
+      "itemname": "Greek Salad",
+      "itemdescription": "Feta, lettuce, cucumbers, tomatoes, onions, olives & lemon dressing make this salad an all time favourite",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Salads & Healthy Bowls",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9005",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10028",
+      "itemname": "Roasted Cherry Tomato & Fennel Soup",
+      "itemdescription": "A classic Italian soup made with slow roasted tomatoes with hints of star anise",
+      "price": "450",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Comforting Soups",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10029",
+      "itemname": "Broccoli Cappuccino",
+      "itemdescription": "Chef recommends this creamy broccoli soup finished with cappuccino milk foam",
+      "price": "450",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Comforting Soups",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10030",
+      "itemname": "Mushroom & Artichoke Soup",
+      "itemdescription": "An Italian classic soup of mushroom & artichoke drizzled with truffle oil",
+      "price": "450",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Comforting Soups",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10031",
+      "itemname": "Mexican Red Pepper Soup",
+      "itemdescription": "Served with paprika",
+      "price": "450",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Comforting Soups",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10032",
+      "itemname": "Chicken Consommé for the Soul",
+      "itemdescription": "A clear chicken broth served with petit tortellini",
+      "price": "450",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Comforting Soups",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10033",
+      "itemname": "Croissant Sandwich",
+      "itemdescription": "Served with fresh greens",
+      "price": "0",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "1",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [
+        {
+          "id": "100331",
+          "variationid": "100331",
+          "name": "Tomato Emmenthal",
+          "groupname": "Choice",
+          "price": "550",
+          "active": "1",
+          "item_packingcharges": "0",
+          "variationrank": "1",
+          "addon": []
+        },
+        {
+          "id": "100332",
+          "variationid": "100332",
+          "name": "Cheddar & Grilled Peppers",
+          "groupname": "Choice",
+          "price": "550",
+          "active": "1",
+          "item_packingcharges": "0",
+          "variationrank": "2",
+          "addon": []
+        }
+      ],
+      "addon": []
+    },
+    {
+      "itemid": "10034",
+      "itemname": "Grilled Four Cheese Panini",
+      "itemdescription": "Bocconcini, Emmenthal, Parmesan, Gouda & tomatoes make it a cheese burst",
+      "price": "575",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10035",
+      "itemname": "Hi-Tea Cucumber Mint Sandwich",
+      "itemdescription": "Think of a quiet British afternoon & you think of this refreshing sandwich",
+      "price": "525",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10036",
+      "itemname": "Pesto Tomato Bocconcini Sandwich",
+      "itemdescription": "Thin focaccia with the Italian classics make it perfect",
+      "price": "575",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10037",
+      "itemname": "Low Calorie Hummus Pickled Veg Sandwich",
+      "itemdescription": "Whole wheat bread, zero dairy fat & pickled carrots, beetroots, cucumber & lettuce explain it well",
+      "price": "550",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10038",
+      "itemname": "Veg Club Sandwich",
+      "itemdescription": "Our take on a double layer Bombay sandwich of potatoes, capsicum, tomato & cheese",
+      "price": "500",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10039",
+      "itemname": "Fresh Harissa Chicken & Avocado Sandwich",
+      "itemdescription": "Chicken marinated in herby harissa dressing, tomato & avocado on sourdough bread",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10040",
+      "itemname": "Asian Chicken Sandwich",
+      "itemdescription": "A fusion sandwich of shredded chicken, green onions & sesame seeds",
+      "price": "575",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10041",
+      "itemname": "Ham Chicken Bocconcini Sandwich",
+      "itemdescription": "Thin focaccia sandwich of pork ham, chicken salami & bocconcini",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10042",
+      "itemname": "Smoked Pulled Chicken Sandwich",
+      "itemdescription": "Slow cooked pulled chicken with hints of smoke, grilled with scamorza cheese",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Sandwiches",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10043",
+      "itemname": "Tri Hummus with Pita",
+      "itemdescription": "Three flavours of hummus served like never before",
+      "price": "500",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10044",
+      "itemname": "Truffle Wedges",
+      "itemdescription": "Potato wedges tossed with truffle oil, parmesan cheese & parsley",
+      "price": "550",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10045",
+      "itemname": "Mexican Jar with Cheesy Nachos",
+      "itemdescription": "Cherry tomato salsa & guacamole served with tortilla chips",
+      "price": "575",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10046",
+      "itemname": "Petit Tortellini",
+      "itemdescription": "Our signature dish — mini tortellini stuffed with roasted garlic & ricotta cheese",
+      "price": "575",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10047",
+      "itemname": "Bell Pepper & Cheese Quesadilla",
+      "itemdescription": "Signature Mr. Beans appetizer makes it a house special",
+      "price": "575",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10048",
+      "itemname": "Baked Feta with Honey & Nuts",
+      "itemdescription": "Served with crostini",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10049",
+      "itemname": "Argentinian Chimichurri Chicken Skewer",
+      "itemdescription": "Spicy chimichurri marinated chicken served on skewers with romesco dip",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10050",
+      "itemname": "Grilled Chicken Sausages",
+      "itemdescription": "Cocktail sausages sautéed with smoked barbeque flavours",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10051",
+      "itemname": "Go Brit with Fish and Chips",
+      "itemdescription": "Crispy fillet of fish deep fried in beer batter, served with country fries",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Entree",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10052",
+      "itemname": "Pizza Margherita",
+      "itemdescription": "Named after Princess Margherita of Savoy, topped with fresh tomato, basil, mozzarella & parmesan. Classic thin crust.",
+      "price": "575",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10053",
+      "itemname": "Authentic Italian Pizza",
+      "itemdescription": "Thin pizza crust topped with tomato purée, bocconcini cheese, basil pesto & fresh herbs",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10054",
+      "itemname": "Tri Chilli Pizza",
+      "itemdescription": "Tingle your senses with this spicy pizza",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10055",
+      "itemname": "Pizza Verde",
+      "itemdescription": "Pesto base, broccoli, cherry tomato, peri peri, goat cheese & mushrooms",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10056",
+      "itemname": "Garden in a Basket",
+      "itemdescription": "A vegetarian's delight — red & yellow peppers, corn, onion & broccoli",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10057",
+      "itemname": "Mediterranean Veg Pizza",
+      "itemdescription": "Mushroom, zucchini, squash, sundried tomato, olives & peppers make it very special",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10058",
+      "itemname": "Tabasco Pizza",
+      "itemdescription": "Spicy tomato sauce topped with red jalapeños, onions & tabasco peppers",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10059",
+      "itemname": "Quattro Fromage Pizza",
+      "itemdescription": "An Italian classic of blue Roquefort, goat cheese, mozzarella & parmesan",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10060",
+      "itemname": "Taste of Italy Pizza",
+      "itemdescription": "Artichokes, basil, peppers, cherry & sundried tomato, parmesan & goat cheese bring you the flavours of Italy",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10061",
+      "itemname": "Spinach & Ricotta Florentine Pizza",
+      "itemdescription": "Ricotta, spinach & garlic baked to perfection",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        },
+        {
+          "addon_group_id": "9007",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10062",
+      "itemname": "Fungi Blanc Pizza",
+      "itemdescription": "Creamy mushroom mince on a white base, topped with truffle, parmesan & mascarpone",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10063",
+      "itemname": "Totally Smoked Chicken & Scamorza Pizza",
+      "itemdescription": "Spice marinated chicken served with bell peppers & smoked cheese",
+      "price": "700",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10064",
+      "itemname": "Full on Chicken Pizza",
+      "itemdescription": "Chicken breast, salami & sausages make this a full on chicken pizza",
+      "price": "700",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10065",
+      "itemname": "Pepperoni Pizza",
+      "itemdescription": "Spicy pork pepperoni on a thin crust",
+      "price": "700",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pizzas",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9006",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "1"
+        }
+      ]
+    },
+    {
+      "itemid": "10066",
+      "itemname": "Pasta Arrabiata",
+      "itemdescription": "Pasta tossed in tomato & basil sauce",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
           "addon_item_selection_max": "2"
         }
       ]
     },
     {
-      "itemid": "103",
-      "itemname": "Cold Coffee",
-      "price": "0",
+      "itemid": "10067",
+      "itemname": "Aglio E Olio",
+      "itemdescription": "Burnt garlic, chilli flakes, parsley & extra virgin olive oil explain it best",
+      "price": "600",
       "active": "1",
       "in_stock": "2",
       "item_tax": "11213,20375",
-      "itemallowvariation": "1",
-      "variation": [
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
         {
-          "id": "5001",
-          "variationid": "7001",
-          "name": "Regular",
-          "price": "140",
-          "active": "1",
-          "groupname": "Size"
-        },
-        {
-          "id": "5002",
-          "variationid": "7002",
-          "name": "Large",
-          "price": "180",
-          "active": "1",
-          "groupname": "Size"
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
         }
-      ],
-      "addon": []
+      ]
     },
     {
-      "itemid": "104",
-      "itemname": "Loaded Fries",
+      "itemid": "10068",
+      "itemname": "Cream Alfredo",
+      "itemdescription": "A cream based sauce flavoured with rosemary & thyme",
       "price": "0",
       "active": "1",
       "in_stock": "2",
       "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
       "itemallowvariation": "1",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
       "variation": [
         {
-          "id": "5003",
-          "variationid": "7003",
-          "name": "Half",
-          "price": "150",
+          "id": "100681",
+          "variationid": "100681",
+          "name": "Mushroom",
+          "groupname": "Choice",
+          "price": "600",
           "active": "1",
-          "groupname": "Size"
+          "item_packingcharges": "0",
+          "variationrank": "1",
+          "addon": []
         },
         {
-          "id": "5004",
-          "variationid": "7004",
-          "name": "Full",
-          "price": "220",
+          "id": "100682",
+          "variationid": "100682",
+          "name": "Broccoli",
+          "groupname": "Choice",
+          "price": "600",
           "active": "1",
-          "groupname": "Size"
+          "item_packingcharges": "0",
+          "variationrank": "2",
+          "addon": []
         }
       ],
       "addon": [
         {
-          "addon_group_id": "901",
-          "addon_item_selection_min": "1",
-          "addon_item_selection_max": "1"
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
         }
       ]
+    },
+    {
+      "itemid": "10069",
+      "itemname": "Spinach & Ricotta Ravioli",
+      "itemdescription": "Hand crafted ravioli stuffed with spinach & ricotta, served with a sauce of your liking",
+      "price": "0",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "1",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [
+        {
+          "id": "100691",
+          "variationid": "100691",
+          "name": "Red sauce",
+          "groupname": "Choice",
+          "price": "600",
+          "active": "1",
+          "item_packingcharges": "0",
+          "variationrank": "1",
+          "addon": []
+        },
+        {
+          "id": "100692",
+          "variationid": "100692",
+          "name": "White sauce",
+          "groupname": "Choice",
+          "price": "600",
+          "active": "1",
+          "item_packingcharges": "0",
+          "variationrank": "2",
+          "addon": []
+        }
+      ],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10070",
+      "itemname": "Fettuccine in Rose Sauce",
+      "itemdescription": "Freshly made pasta ribbons tossed in creamy marinara sauce",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10071",
+      "itemname": "Spaghetti with Pesto Genovese",
+      "itemdescription": "Spaghetti in basil pesto tossed with peppers & zucchini ribbons",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10072",
+      "itemname": "Truffle Macaroni & Cheese",
+      "itemdescription": "An all time comfort food",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10073",
+      "itemname": "Shiitake Mushroom & Truffle Udon Noodles",
+      "itemdescription": "Sweet & sour umami flavoured noodles",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10074",
+      "itemname": "Homemade Gnocchi",
+      "itemdescription": "Served with truffle, butter garlic, zucchini, cherry tomato & mushrooms",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10075",
+      "itemname": "Spaghetti Bolognese",
+      "itemdescription": "An all time meat lovers pick",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10076",
+      "itemname": "Thai Style Pan Fried Noodles",
+      "itemdescription": "Served with a medley of vegetables, mushrooms & sweet sour Thai sauce",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10077",
+      "itemname": "Korean Chilli Garlic Wok-Fried Noodles",
+      "itemdescription": "Noodles tossed with tofu, edamame, bok choy & zucchini",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Pasta & Noodles",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9008",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10078",
+      "itemname": "Risotto of the Month",
+      "itemdescription": "Mr. Beans' experiments with risotto, with seasonal vegetables & flavours",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Not Pasta",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9009",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10079",
+      "itemname": "Mediterranean Tri-Quinoa Pepper Risotto",
+      "itemdescription": "Served with Mediterranean vegetables, pumpkin seeds & mascarpone cheese",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Not Pasta",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9009",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10080",
+      "itemname": "Mexican Spice Bowl",
+      "itemdescription": "Served with chipotle rice, guacamole, peppers & sour cream",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Not Pasta",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9009",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "2"
+        }
+      ]
+    },
+    {
+      "itemid": "10081",
+      "itemname": "Thai Style Peanut Crumbed Fish",
+      "itemdescription": "Served with rice & lemongrass sauce",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Meat Feasts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10082",
+      "itemname": "Chicken Cordon Bleu",
+      "itemdescription": "Chef's special — chicken roulade stuffed with Swiss cheese, wrapped with bacon",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Meat Feasts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10083",
+      "itemname": "Classic Grilled Fish",
+      "itemdescription": "Served with creamy green peppercorn sauce, salsa verde & crisp greens",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Meat Feasts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10084",
+      "itemname": "Shepherd's Pie",
+      "itemdescription": "A rustic country dish of mashed potatoes & spicy meat mince",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Meat Feasts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10085",
+      "itemname": "Grilled Rosemary Thyme Chicken",
+      "itemdescription": "Chicken breast marinated in olive oil & herbs, served with brown mushroom sauce",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Meat Feasts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10086",
+      "itemname": "Veg Maki",
+      "itemdescription": "Nori sheets & rice rolled with cucumber, carrot & peppers",
+      "price": "550",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Selection",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10087",
+      "itemname": "Veg Tempura Uramaki",
+      "itemdescription": "Uramaki — \"reversed sushi\" — rolled with fried veg tempura",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Selection",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10088",
+      "itemname": "California Roll",
+      "itemdescription": "A rebel roll made with avocado, cream cheese & veg",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Selection",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10089",
+      "itemname": "Chicken Teriyaki & Avocado Uramaki",
+      "itemdescription": "Nori sheets, rice & succulent teriyaki chicken pair up with avocado in this rebel roll",
+      "price": "675",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Selection",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10090",
+      "itemname": "Prawn Tempura Uramaki",
+      "itemdescription": "Crunchy tempura fried prawns rolled with cream cheese & veg",
+      "price": "725",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Selection",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10091",
+      "itemname": "Asian Chicken Wings",
+      "itemdescription": "Thai style deep fried chicken wings served with tangy sauce",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Selection",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "2",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10092",
+      "itemname": "Edamame Pod Bowl",
+      "itemdescription": "Steamed edamame pods dressed in soy chilli dressing",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Selection",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10093",
+      "itemname": "Spicy Thai Red Curry",
+      "itemdescription": "Coconut milk infused with homemade red chilli Thai curry paste, cooked with exotic vegetables. Served with burnt garlic rice.",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Curry",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9010",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10094",
+      "itemname": "Aromatic Green Thai Curry",
+      "itemdescription": "Green chilli, coriander & Thai herbs ground to a paste & cooked with coconut milk & exotic vegetables. Served with burnt garlic rice.",
+      "price": "650",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Asian Curry",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9010",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10095",
+      "itemname": "Nutella Croissant Pudding",
+      "itemdescription": "Chocolate croissants baked with Nutella custard. Served with ice cream.",
+      "price": "500",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Desserts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "24",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10096",
+      "itemname": "Warm Chocolate Chip Nutella Piz-ookie",
+      "itemdescription": "Pizza + cookie = piz-ookie. Jumbo fudgy freshly baked chocolate chip cookie with a Nutella layer, served with ice cream",
+      "price": "600",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Desserts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10097",
+      "itemname": "Tiramisu — Spiked",
+      "itemdescription": "Meaning \"pick me up\" in Italian, our specialty",
+      "price": "415",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Desserts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "24",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10098",
+      "itemname": "Belgian Chocolate Brownies",
+      "itemdescription": "Dark chocolate & walnut brownies served with ice cream & fudge",
+      "price": "375",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Desserts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10099",
+      "itemname": "Double Dark Chocolate Cheese Cake",
+      "itemdescription": "Every morsel is heavenly in this chocolate & cream cheese dessert",
+      "price": "375",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Desserts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10100",
+      "itemname": "Cheese Cake in a Jar",
+      "itemdescription": "A modern take on a classic recipe",
+      "price": "375",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Desserts",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10101",
+      "itemname": "Chocolate Chip Cookie",
+      "itemdescription": "",
+      "price": "75",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "The Gourmet Store Bakery Cabinet",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10102",
+      "itemname": "Almond Florentine",
+      "itemdescription": "",
+      "price": "75",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "The Gourmet Store Bakery Cabinet",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10103",
+      "itemname": "Almond Biscottis",
+      "itemdescription": "",
+      "price": "50",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "The Gourmet Store Bakery Cabinet",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10104",
+      "itemname": "New York Cheese Cake (1 Slice)",
+      "itemdescription": "",
+      "price": "410",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "The Gourmet Store Bakery Cabinet",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10105",
+      "itemname": "Biscoff Cheese Cake (1 Slice)",
+      "itemdescription": "",
+      "price": "410",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "The Gourmet Store Bakery Cabinet",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10106",
+      "itemname": "Devil Fudge Cake (1 Slice)",
+      "itemdescription": "",
+      "price": "425",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "The Gourmet Store Bakery Cabinet",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10107",
+      "itemname": "Mississippi Mud Pie",
+      "itemdescription": "",
+      "price": "385",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "The Gourmet Store Bakery Cabinet",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10108",
+      "itemname": "Jasmine Mandarin Tea",
+      "itemdescription": "A unique combination of a fruit & flower tea",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10109",
+      "itemname": "Kesar Rose Chai",
+      "itemdescription": "A fragrant blend for a soothing yet aromatic experience",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10110",
+      "itemname": "All Day Immunity Elixir",
+      "itemdescription": "A herbal infusion to keep you energised through the day",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10111",
+      "itemname": "Tranquil Berry",
+      "itemdescription": "Fruity berries & calming herbs to unwind after a long day",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10112",
+      "itemname": "Green Tea with Muskmelon",
+      "itemdescription": "Sweet, subtle melon flavours with green tea",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10113",
+      "itemname": "Mint Mojito Tea",
+      "itemdescription": "Organic green peppermint tea with fresh notes",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10114",
+      "itemname": "Cinnamon & Rooibos Tea",
+      "itemdescription": "South African red bush tea with hints of cinnamon",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10115",
+      "itemname": "Organic Rose Tea",
+      "itemdescription": "Fresh rose green tea transcends calmness",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10116",
+      "itemname": "Peach Hibiscus Tea",
+      "itemdescription": "A chemistry between peach & floral notes",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10117",
+      "itemname": "Irani Sulaimani Chai",
+      "itemdescription": "Exotic Irani tea served with milk & cardamom",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10118",
+      "itemname": "Lemon Grass & Orange Tea",
+      "itemdescription": "A wellness tea to help rejuvenate",
+      "price": "285",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Spill The Tea",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10119",
+      "itemname": "Espresso",
+      "itemdescription": "",
+      "price": "130",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10120",
+      "itemname": "Americano",
+      "itemdescription": "",
+      "price": "185",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10121",
+      "itemname": "Cappuccino",
+      "itemdescription": "",
+      "price": "250",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10122",
+      "itemname": "Cafe Latte",
+      "itemdescription": "",
+      "price": "250",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10123",
+      "itemname": "Mochaccino",
+      "itemdescription": "",
+      "price": "250",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10124",
+      "itemname": "Activated Charcoal Cafe Latte",
+      "itemdescription": "",
+      "price": "250",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10125",
+      "itemname": "Irish Coffee",
+      "itemdescription": "Diluted black coffee with a shot of Irish cream flavour, topped with whipped cream",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10126",
+      "itemname": "French Kiss",
+      "itemdescription": "Espresso with steamed milk, a shot of caramel & vanilla flavour",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10127",
+      "itemname": "Caramel Mocha",
+      "itemdescription": "Espresso with steamed milk, a shot of caramel & chocolate flavour",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10128",
+      "itemname": "Cafe Pasha",
+      "itemdescription": "Tiramisu flavour dark chocolate topped with hot milk & cream",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10129",
+      "itemname": "Piping Hot Cinnamon Macchiato",
+      "itemdescription": "Double shot of espresso marked with strong cinnamon flavours & steamed milk",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10130",
+      "itemname": "American Hot Chocolate",
+      "itemdescription": "Pure dark chocolate topped with comforting hot milk",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Not Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10131",
+      "itemname": "Matcha Latte",
+      "itemdescription": "Served hot or cold, to your liking",
+      "price": "0",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Not Coffee",
+      "itemallowvariation": "1",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [
+        {
+          "id": "101311",
+          "variationid": "101311",
+          "name": "Hot",
+          "groupname": "Choice",
+          "price": "300",
+          "active": "1",
+          "item_packingcharges": "0",
+          "variationrank": "1",
+          "addon": []
+        },
+        {
+          "id": "101312",
+          "variationid": "101312",
+          "name": "Cold",
+          "groupname": "Choice",
+          "price": "300",
+          "active": "1",
+          "item_packingcharges": "0",
+          "variationrank": "2",
+          "addon": []
+        }
+      ],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10132",
+      "itemname": "Café Frappé",
+      "itemdescription": "A soothing coffee blended with vanilla ice cream",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10133",
+      "itemname": "Vietnamese Coffee",
+      "itemdescription": "Coffee served with condensed milk & ice",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10134",
+      "itemname": "Frozen Mochaccino",
+      "itemdescription": "Frozen coffee blended with chocolate ice cream",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10135",
+      "itemname": "Café Anaconda",
+      "itemdescription": "Signature coffee of Mr. Beans — mint & chocolate, served with fudge & whipped cream",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10136",
+      "itemname": "Choco Irish",
+      "itemdescription": "Our signature chocolate Irish cream flavoured coffee",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10137",
+      "itemname": "Café Veronica",
+      "itemdescription": "A coffee dessert with layers of whipped cream, crushed cookies & chocolate fudge",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10138",
+      "itemname": "Affogato",
+      "itemdescription": "An Italian classic — vanilla ice cream topped with espresso",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10139",
+      "itemname": "Nutella & Coffee Delight",
+      "itemdescription": "A blend of hazelnut cream, chocolate fudge & coffee",
+      "price": "375",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10140",
+      "itemname": "Brownie Millionaire",
+      "itemdescription": "A signature dessert beverage of Mr. Beans",
+      "price": "375",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10141",
+      "itemname": "Ferrero Rocher Shake",
+      "itemdescription": "Signature of Mr. Beans — hazelnut & chocolate are blissful",
+      "price": "375",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Cold Coffee",
+      "itemallowvariation": "0",
+      "itemallowaddon": "1",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": [
+        {
+          "addon_group_id": "9011",
+          "addon_item_selection_min": "0",
+          "addon_item_selection_max": "4"
+        }
+      ]
+    },
+    {
+      "itemid": "10142",
+      "itemname": "Chocolate Chill",
+      "itemdescription": "Mr. Beans' take on a very, very chocolaty milkshake",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10143",
+      "itemname": "Kit Kat Shake",
+      "itemdescription": "A chocolate milkshake blended & served with a chocolate wafer finger",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10144",
+      "itemname": "Oreo Shake",
+      "itemdescription": "A classic cookie cream shake",
+      "price": "325",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10145",
+      "itemname": "Vegan Almond Milk Berry Banana Smoothie",
+      "itemdescription": "Lactose free refreshing smoothie with blueberry, strawberry & banana",
+      "price": "375",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10146",
+      "itemname": "Vegan Almond Milk Mocha Cinnamon Shake",
+      "itemdescription": "Lactose free chocolate, coffee, almond milk & cinnamon shake",
+      "price": "375",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10147",
+      "itemname": "Virgin Mojito",
+      "itemdescription": "Lemon, mint & sparkling soda are a sure shot to freshness",
+      "price": "350",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10148",
+      "itemname": "Truly Lemon Lemonade",
+      "itemdescription": "A refreshing beverage infused with lemongrass & kaffir lime leaves",
+      "price": "350",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10149",
+      "itemname": "Morning De-tox Juice",
+      "itemdescription": "Orange blended with blueberries & strawberry",
+      "price": "385",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10150",
+      "itemname": "Berry De-tox Juice",
+      "itemdescription": "Super food berries blended with watermelon to energise you",
+      "price": "385",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10151",
+      "itemname": "Fresh Garden Juice",
+      "itemdescription": "A concoction of orange, carrot & beetroot juice, infused with rosemary",
+      "price": "385",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10152",
+      "itemname": "Specialised Orange Juice",
+      "itemdescription": "Mr. Beans makes a glass full of Vitamin C different with infusions",
+      "price": "385",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10153",
+      "itemname": "Fresh Water Melon Juice",
+      "itemdescription": "Hydrate yourself with fresh watermelon",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10154",
+      "itemname": "Fresh Ginger Ale",
+      "itemdescription": "",
+      "price": "330",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10155",
+      "itemname": "Lemon Mint Iced Tea",
+      "itemdescription": "",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10156",
+      "itemname": "Boston Cranberry Iced Tea",
+      "itemdescription": "",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10157",
+      "itemname": "Orange Ginger Iced Tea",
+      "itemdescription": "",
+      "price": "300",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
+    },
+    {
+      "itemid": "10158",
+      "itemname": "Mineral Water",
+      "itemdescription": "",
+      "price": "50",
+      "active": "1",
+      "in_stock": "2",
+      "item_tax": "11213,20375",
+      "item_categoryid": "Shakes, Juices & More",
+      "itemallowvariation": "0",
+      "itemallowaddon": "0",
+      "item_attributeid": "1",
+      "variation": [],
+      "addon": []
     }
   ],
-  "_readme": "A stand-in for the menu Petpooja pushes, in their push shape. Not their data: it exists so scripts/petpooja-certify.ts --dry-run can build all five certification payloads before the sandbox has been logged into, which is the only part of certification that does not need their credentials. Four items between them cover every case they ask for: one plain, one with an add-on group, one with variations, and one with both."
+  "_readme": "Generated by scripts/petpooja-sandbox-menu.ts from data/mrbeans-saket-oct-2026.json — Mr. Beans' own dishes, prices, add-ons and variations, in the shape Petpooja pushes a menu in. The POS ids (itemid, addonitemid, variationid) are stand-ins: Petpooja allocates those on a real push, and their sandbox does not check them. Regenerate rather than edit by hand."
 }
