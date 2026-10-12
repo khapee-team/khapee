@@ -1585,19 +1585,41 @@ dataFix('2026-10-04-revery-no-cash', () => {
  * named, and visible in its own staff list, instead of a rule that quietly
  * gives one address the keys to every kitchen on the platform.
  */
-dataFix('2026-10-12-khapee-admin-on-saket', () => {
-  const user = db.prepare("SELECT id FROM users WHERE lower(email) = 'siyaagrawal292@gmail.com'").get() as any
-  const cafe = db.prepare("SELECT id FROM restaurants WHERE slug = 'mr-beans-saket'").get() as any
-  if (!user || !cafe) return
+/*
+ * Accounts that may administer a restaurant they do not own.
+ *
+ * Run on every boot rather than once, because the account usually does not
+ * exist yet when the grant is written: somebody decides who should get in
+ * before that person has signed up. A one-shot migration would run against an
+ * empty users table and silently do nothing, which is exactly how the last
+ * one failed to help.
+ *
+ * Granted by name, one cafe at a time. The alternative — letting
+ * KHAPEE_OWNER_EMAILS open every restaurant's settings — would hand one
+ * address the keys to every kitchen on the platform to solve one person's
+ * login problem.
+ */
+const GRANTS: { email: string; slug: string }[] = [
+  { email: 'siyaagrawal292@gmail.com', slug: 'mr-beans-saket' },
+  // Added so the Petpooja integration can be finished from an account whose
+  // password is known; the first one's is not.
+  { email: 'sagrawal12795@dalycollege.org', slug: 'mr-beans-saket' },
+]
+
+for (const grant of GRANTS) {
+  const user = db.prepare('SELECT id FROM users WHERE lower(email) = ?').get(grant.email.toLowerCase()) as any
+  const cafe = db.prepare('SELECT id FROM restaurants WHERE slug = ?').get(grant.slug) as any
+  if (!user || !cafe) continue
   const already = db
     .prepare('SELECT 1 FROM restaurant_staff WHERE user_id = ? AND restaurant_id = ?')
     .get(user.id, cafe.id)
-  if (already) return
+  if (already) continue
   db.prepare("INSERT INTO restaurant_staff (user_id, restaurant_id, job_title) VALUES (?, ?, 'Owner')").run(
     user.id,
     cafe.id,
   )
-})
+  console.log(`[access] ${grant.email} can now administer ${grant.slug}`)
+}
 
 /* Revery gives a scratch card on every order. Theirs to turn down. */
 dataFix('2026-10-10-revery-scratch-every-order', () => {
