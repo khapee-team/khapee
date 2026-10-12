@@ -13,6 +13,10 @@
  *   --menu file.json   use a saved menu instead of fetching it
  *   --callback URL     where Petpooja should send accept / ready / cancel
  *                      (defaults to a URL that answers nothing)
+ *   --curl             print the request instead of making it
+ *   --with-keys        put the real credentials in that printed request
+ *   --stamp XXXX       reuse the suffix of order IDs already sent, so the
+ *                      printed request is the one they are asking about
  *
  * Their five scenarios, in their numbering:
  *   1) Items + Tax                       4) Item with Discount + Tax
@@ -32,6 +36,16 @@ const flag = (name: string) => {
   return i >= 0 ? args[i + 1] : undefined
 }
 const dryRun = args.includes('--dry-run')
+/*
+ * --curl prints the request rather than making it, because the first thing
+ * Petpooja asks when they cannot find an order is to see the cURL. Pair it
+ * with --stamp to reproduce orders already sent: the order IDs end in a
+ * timestamp, so without it the printed request is for an order that does not
+ * exist yet, which answers a different question than the one being asked.
+ * Keys are left out unless --with-keys, so the output can be pasted anywhere.
+ */
+const asCurl = args.includes('--curl')
+const withKeys = args.includes('--with-keys')
 
 const restId = (process.env.PETPOOJA_REST_ID || '31zqndu7ar').trim()
 const appKey = (process.env.PETPOOJA_APP_KEY || '').trim()
@@ -40,7 +54,7 @@ const accessToken = (process.env.PETPOOJA_ACCESS_TOKEN || '').trim()
 const base = (process.env.PETPOOJA_BASE_URL || 'https://qle1yy2ydc.execute-api.ap-southeast-1.amazonaws.com/V1').replace(/\/+$/, '')
 const callbackUrl = flag('--callback') || 'https://khapee.com/api/petpooja/sandbox-certification/callback'
 
-if (!dryRun && (!appKey || !appSecret || !accessToken)) {
+if (!dryRun && !asCurl && (!appKey || !appSecret || !accessToken)) {
   console.error(
     '\n  Set PETPOOJA_APP_KEY, PETPOOJA_APP_SECRET and PETPOOJA_ACCESS_TOKEN first.' +
       '\n  They are on the sandbox dashboard, under Configuration.\n',
@@ -184,7 +198,7 @@ if (missing.length) {
 /* --- Send them ------------------------------------------------------------------ */
 
 const link = { restId, appKey, appSecret, accessToken } as any
-const stamp = Date.now().toString(36).toUpperCase()
+const stamp = (flag('--stamp') || Date.now().toString(36)).toUpperCase()
 const restaurant = { name: menu.restaurants?.[0]?.details?.restaurantname ?? 'Khapee sandbox', address: '', phone: '' }
 const results: { n: number; title: string; orderId: string; petpoojaOrderId: string; ok: boolean; message: string }[] = []
 
@@ -209,6 +223,19 @@ for (const c of cases) {
     callbackUrl,
   )
 
+  if (asCurl) {
+    const shown = withKeys
+      ? payload
+      : { ...payload, app_key: '<app_key>', app_secret: '<app_secret>', access_token: '<access_token>' }
+    console.log(`# Case ${c.n}: ${c.title} — order ${orderId}`)
+    console.log(
+      `curl --location '${base}/save_order' \\\n` +
+        `  --header 'Content-Type: application/json' \\\n` +
+        `  --data '${JSON.stringify(shown).replace(/'/g, `'\\''`)}'\n`,
+    )
+    continue
+  }
+
   if (dryRun) {
     console.log(`\n── Case ${c.n}: ${c.title} ──`)
     console.log(JSON.stringify({ ...payload, app_key: '…', app_secret: '…', access_token: '…' }, null, 2))
@@ -232,7 +259,7 @@ for (const c of cases) {
   })
 }
 
-if (!dryRun) {
+if (!dryRun && !asCurl) {
   console.log(`\n  Sent at ${indiaTime(new Date().toISOString())} IST to restID ${restId}\n`)
   for (const r of results) {
     console.log(
