@@ -602,8 +602,8 @@ export default function Restaurant() {
             {offer && (
               <p className="offer-note">
                 🎓 {offer.label ? `${offer.label}: ` : ''}
-                <strong>{offer.percent}% off coupon</strong> — continue with your @{offer.domain} Google account at
-                checkout to unlock it.
+                <strong>{offer.percent}% off coupon</strong> — verify your @{offer.domain} email at checkout to
+                unlock it.
               </p>
             )}
             <div className="menu-find">

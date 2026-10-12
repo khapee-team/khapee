@@ -77,6 +77,8 @@ export default function Profile() {
     }
   }
 
+  // Made by a first order: no email of their own, only their number.
+  const phoneOnly = user.email.endsWith("@guest.khapee.com")
   const initials = user.name
     .split(/\s+/)
     .filter(Boolean)
@@ -97,7 +99,7 @@ export default function Profile() {
           <div className="avatar avatar-lg">{initials || '◗'}</div>
           <div style={{ minWidth: 0 }}>
             <h1>{user.name}</h1>
-            <p className="muted">{user.email}</p>
+            <p className="muted">{phoneOnly ? user.phone : user.email}</p>
             {sinceLabel && <p className="tiny muted">Since {sinceLabel}</p>}
           </div>
         </section>
@@ -122,10 +124,12 @@ export default function Profile() {
                 autoComplete="tel"
               />
             </div>
-            <div className="field">
-              <label htmlFor="pr-email">Email</label>
-              <input id="pr-email" className="input" value={user.email} readOnly disabled />
-            </div>
+            {!phoneOnly && (
+              <div className="field">
+                <label htmlFor="pr-email">Email</label>
+                <input id="pr-email" className="input" value={user.email} readOnly disabled />
+              </div>
+            )}
 
             <button className="btn btn-accent btn-lg" disabled={saving}>
               {saving ? <Spinner /> : 'Save'}

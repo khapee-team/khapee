@@ -12,7 +12,7 @@ import { claimedCents, outstandingCents, upiOnly } from './payments.ts'
 import { limitedRefusal, limitedState, orderableNow } from './limited.ts'
 import { tellBilling } from './order-feed.ts'
 import { cardForOrder, cardToSpend, customerKey, discountFor, maybeAward, spend } from './scratch.ts'
-import { discountOn, offerFor, qualifyingEmail } from './offers.ts'
+import { discountOn, offerFor, passEmail, qualifyingEmail } from './offers.ts'
 
 export type CodeCheck =
   | { ok: true; row: any }
@@ -99,6 +99,8 @@ export type CreateOrderInput = {
    * signed-in account whose email qualifies (see server/offers.ts).
    */
   applyOffer?: boolean
+  /** The pass from an emailed code (server/offers.ts). */
+  offerPass?: string | null
 }
 
 /**
@@ -417,12 +419,14 @@ export function createOrder(input: CreateOrderInput): CreateOrderResult {
   }
   // The restaurant's offer, for a customer whose email qualifies: a share of
   // the dishes, never of the delivery fee.
-  const offer = input.applyOffer && input.userId ? offerFor(input.restaurantId) : null
-  // The email Google confirmed, not the one typed at sign-up (routes/auth.ts).
-  const accountEmail = offer
-    ? ((db.prepare('SELECT verified_email FROM users WHERE id = ?').get(input.userId) as any)?.verified_email ?? '')
-    : ''
-  const offerEmail = qualifyingEmail(offer, accountEmail)
+  const offer = input.applyOffer ? offerFor(input.restaurantId) : null
+  // A proved address: the pass from an emailed code, or an account email
+  // Google confirmed. Never just an address somebody typed.
+  const accountEmail =
+    offer && input.userId
+      ? ((db.prepare('SELECT verified_email FROM users WHERE id = ?').get(input.userId) as any)?.verified_email ?? '')
+      : ''
+  const offerEmail = passEmail(offer, input.offerPass) ?? qualifyingEmail(offer, accountEmail)
   const offerPercent = offerEmail && offer ? offer.percent : 0
   const offerCents = discountOn(subtotalCents, offerPercent)
 

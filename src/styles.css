@@ -10006,4 +10006,127 @@ button.nav-link {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--good);}
+  color: var(--good);}/* Unlocking the coupon by email: the address, then the code. */
+.coupon-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+}
+.coupon-form .input {
+  width: 100%;
+}
+.coupon-code {
+  margin-top: 8px;
+  max-width: 180px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-align: center;
+}
+.coupon-error {
+  margin-top: 6px;
+  color: var(--bad);
+  font-weight: 600;
+}
+
+/* ── Checkout, compact (Zomato-style) ────────────────────────────────────────
+   What is already known is one line, extras open on a tap, and the total and
+   the button stay pinned to the bottom of the screen. */
+.co-head {
+  margin-bottom: 12px;
+}
+.co-head h1 {
+  margin: 0;
+  font-size: 22px;
+}
+.co-head p {
+  margin: 2px 0 0;
+  font-size: 13.5px;
+}
+.co-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.co-row-icon {
+  font-size: 18px;
+}
+.co-row-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.co-pay {
+  border-bottom: 0;
+  margin-bottom: 4px;
+}
+.co-add-note {
+  display: block;
+  margin: 10px 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.coupon-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.coupon-toggle > span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.co-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 14px calc(var(--gutter, 16px) * -1) 0;
+  padding: 12px var(--gutter, 16px) calc(12px + env(safe-area-inset-bottom, 0px));
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 22px rgba(0, 0, 0, 0.06);
+}
+.co-bar-total {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.co-bar-total strong {
+  font-size: 19px;
+}
+.co-bar-total span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.co-bar-btn {
+  flex: 1;
+}
+
+/* First order = sign-up: one quiet line above the name and number. */
+.co-first {
+  margin: 4px 0 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface-2, rgba(0, 0, 0, 0.04));
+  font-size: 0.88rem;
+  line-height: 1.4;
+}

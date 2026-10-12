@@ -6,7 +6,6 @@ import VerifyModal from '../components/VerifyModal'
 import { api, ApiError } from '../lib/api'
 import { cartItems, useCart } from '../lib/cart'
 import { useSession } from '../lib/session'
-import GoogleButton from '../components/GoogleButton'
 import { clearDining, readDining, saveDining, type DiningSession } from '../lib/dining'
 import { clearTableContext, readTableContext, rememberReceipt } from '../lib/table-context'
 import { clearIntent, readIntent } from '../lib/intent'
@@ -23,7 +22,7 @@ type Table = { id: number; label: string; seats: number }
  */
 export default function Checkout() {
   const { cart, count, totalCents, clear } = useCart()
-  const { user } = useSession()
+  const { user, adopt } = useSession()
   const navigate = useNavigate()
   const toast = useToast()
 
@@ -62,6 +61,10 @@ export default function Checkout() {
     return 'here'
   })
   const [tables, setTables] = useState<Table[] | null>(null)
+  // Compact by default, Zomato-style: what is already known is one line.
+  const [editDetails, setEditDetails] = useState(false)
+  const [noteOpen, setNoteOpen] = useState(false)
+  const [couponOpen, setCouponOpen] = useState(false)
   // A scanned table QR already answered "which table", so start on its answer
   // rather than an empty grid.
   const scannedTable = restaurantId ? readTableContext(restaurantId) : null
@@ -162,11 +165,78 @@ export default function Checkout() {
 
   /*
    * The restaurant's coupon for people from one place — 20% off at Mr. Beans
-   * Saket for a signed-in @dalycollege.org account. Shown as a coupon the
-   * customer taps to apply, never applied on its own; the server checks the
-   * account and works the discount out itself, so this is only what is shown.
+   * Saket for a @dalycollege.org address. The address is proved with a 6-digit
+   * code emailed to it — typed back, it leaves a pass on this phone — and the
+   * coupon then waits for the customer to press Apply; it is never applied on
+   * its own. The server checks the pass and works the discount out itself, so
+   * this is only what is shown.
    */
-  const [offer, setOffer] = useState<{ domain: string; percent: number; label: string } | null>(null)
+  const [offer, setOffer] = useState<{ domain: string; percent: number; label: string; codesOn?: boolean } | null>(null)
+  const passKey = `khapee.offerPass.${restaurantId}`
+  const [offerPass, setOfferPass] = useState<{ pass: string; email: string } | null>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(`khapee.offerPass.${restaurantId}`) || 'null')
+    } catch {
+      return null
+    }
+  })
+  const [offerEmail, setOfferEmail] = useState('')
+  const [codeSent, setCodeSent] = useState(false)
+  const [offerCode, setOfferCode] = useState('')
+  const [offerBusy, setOfferBusy] = useState(false)
+  const [offerNote, setOfferNote] = useState('')
+  const sendOfferCode = async () => {
+    setOfferBusy(true)
+    setOfferNote('')
+    try {
+      const sentTo = offerEmail.trim()
+      await api(`/orders/offer/${restaurantId}/send-code`, { body: { email: sentTo } })
+      setCodeSent(true)
+      setOfferCode('')
+      // The code box is open; meanwhile, find out whether the address bounced,
+      // and if it did, say so instead of leaving them waiting for a code.
+      void (async () => {
+        for (let i = 0; i < 6; i++) {
+          await new Promise((r) => setTimeout(r, 2500))
+          const r = await api<{ status: string; error?: string }>(
+            `/orders/offer/${restaurantId}/code-status?email=${encodeURIComponent(sentTo)}`,
+          ).catch(() => null)
+          if (!r || r.status === 'fine') return
+          if (r.status === 'bounced') {
+            setCodeSent(false)
+            setOfferNote(r.error ?? "That email isn't available.")
+            return
+          }
+        }
+      })()
+    } catch (e) {
+      setOfferNote((e as ApiError).message)
+    } finally {
+      setOfferBusy(false)
+    }
+  }
+  // Checked the moment the sixth digit is in — no button to press.
+  const checkOfferCode = async (code: string) => {
+    setOfferBusy(true)
+    setOfferNote('')
+    try {
+      const r = await api<{ pass: string; email: string }>(`/orders/offer/${restaurantId}/check-code`, {
+        body: { email: offerEmail.trim(), code },
+      })
+      const kept = { pass: r.pass, email: r.email }
+      setOfferPass(kept)
+      try {
+        localStorage.setItem(passKey, JSON.stringify(kept))
+      } catch {
+        /* a private window forgets it */
+      }
+    } catch (e) {
+      setOfferNote((e as ApiError).message)
+      setOfferCode('')
+    } finally {
+      setOfferBusy(false)
+    }
+  }
   const [offerApplied, setOfferApplied] = useState(false)
   useEffect(() => {
     if (!restaurantId) return
@@ -174,8 +244,11 @@ export default function Checkout() {
       .then((r) => setOffer(r.offer))
       .catch(() => setOffer(null))
   }, [restaurantId])
-  // Only an email Google has confirmed counts — anybody can type an address.
-  const offerEligible = !!offer && !!user && String(user.verifiedEmail ?? '').toLowerCase().endsWith(`@${offer.domain}`)
+  // Only a proved address counts — anybody can type one.
+  const offerEligible =
+    !!offer &&
+    (!!offerPass?.email.endsWith(`@${offer.domain}`) ||
+      (!!user && String(user.verifiedEmail ?? '').toLowerCase().endsWith(`@${offer.domain}`)))
   const offerCents =
     offerEligible && offerApplied && offer ? Math.min(totalCents, Math.round((totalCents * offer.percent) / 100 / 100) * 100) : 0
 
@@ -309,6 +382,10 @@ export default function Checkout() {
    */
   /** A bakery that only hands orders over the counter: nothing to change, nothing to pay later. */
   const collectOnly = !!options?.collectOnly
+  // A place with no eating in: the order is collected, whatever was picked before.
+  useEffect(() => {
+    if (collectOnly) setWhere('later')
+  }, [collectOnly])
   const prepaidOnly =
     !!options?.prepaidOnly ||
     (isCar && !!options?.carPrepaidOnly) ||
@@ -412,6 +489,7 @@ export default function Checkout() {
           customerPhone: phone.trim(),
           // And the offer, when that is the one winning.
           applyOffer: offerCents > 0 && !useCard,
+          offerPass: offerPass?.pass ?? null,
         },
       })
       setPayRequest(r)
@@ -428,7 +506,7 @@ export default function Checkout() {
     setPlacing(true)
     setError('')
     try {
-      const r = await api<{ order: any }>('/orders', {
+      const r = await api<{ order: any; session?: { token: string; user: any } | null }>('/orders', {
         body: {
           restaurantId,
           type: where === 'later' ? 'pickup' : 'dine_in',
@@ -448,12 +526,15 @@ export default function Checkout() {
           paymentClaim: paymentClaim ? { upiRef: paymentClaim.upiRef } : null,
           // Only meaningful for an order placed before setting off.
           wantInMinutes: where === 'later' ? arriveIn : 0,
-          applyOffer: discountCents > 0,
+          applyOffer: offerCents > 0 && !useCard,
+          offerPass: offerPass?.pass ?? null,
         },
       })
       const order = r.order
       rememberReceipt(order.orderNumber, order.verifyToken)
       saveMe(name, phone)
+      // The first order made them an account; this phone stays signed in.
+      if (r.session?.token && r.session.user) adopt(r.session.token, r.session.user)
       if (restaurantId) {
         saveLastOrder(
           restaurantId,
@@ -513,17 +594,19 @@ export default function Checkout() {
     <div className="app">
       <Header />
       <main className="page page-narrow">
-        <h1 style={{ marginBottom: 4 }}>Your order</h1>
-        <p className="muted mb-2">
-          {count} item{count > 1 ? 's' : ''} from {cart.restaurantName}
-        </p>
+        <div className="co-head">
+          <h1>Checkout</h1>
+          <p className="muted">
+            {count} item{count > 1 ? 's' : ''} · {cart.restaurantName}
+          </p>
+        </div>
 
         {error && <div className="form-error">{error}</div>}
 
         {/* The one-tap order from the menu, going through by itself. */}
         {go && placing && !payRequest && <LoadingBlock label="Placing your order…" />}
         {go && !ready && !placing && (needsName || needsPhone) && (
-          <p className="quick-once">Just your name and number — only this once.</p>
+          <p className="quick-once">Just your name and number — only this once, then you’re signed in.</p>
         )}
 
         {!lean && (
@@ -728,6 +811,27 @@ export default function Checkout() {
             </div>
           )}
 
+          {/* Known from last time: one line, editable. Unknown: the two boxes. */}
+          {!editDetails && !needsName && !(needsPhone && !isNearby && !isDelivery) ? (
+            <div className="co-row">
+              <span className="co-row-icon" aria-hidden>
+                👤
+              </span>
+              <span className="co-row-main">
+                <strong>{name.trim()}</strong>
+                {!isNearby && !isDelivery && <span className="tiny muted">{phone.trim()}</span>}
+              </span>
+              <button type="button" className="link-btn" onClick={() => setEditDetails(true)}>
+                Edit
+              </button>
+            </div>
+          ) : (
+            <>
+          {!user && (
+            <p className="co-first">
+              <strong>First time here?</strong> Just your name and number — you’ll stay signed in after this order.
+            </p>
+          )}
           <div className="field">
             <label htmlFor="co-name">Name for the order</label>
             <input
@@ -760,8 +864,16 @@ export default function Checkout() {
             </div>
           )}
 
+            </>
+          )}
+
+          {!lean && !noteOpen && !note ? (
+            <button type="button" className="co-add-note link-btn" onClick={() => setNoteOpen(true)}>
+              + Add a note for the kitchen
+            </button>
+          ) : (
           <div className="field" style={lean ? { display: 'none' } : undefined}>
-            <label htmlFor="co-note">Anything we should know? (optional)</label>
+            <label htmlFor="co-note">Note for the kitchen</label>
             <textarea
               id="co-note"
               className="textarea"
@@ -771,6 +883,7 @@ export default function Checkout() {
               placeholder="Less spicy, no onions…"
             />
           </div>
+          )}
 
 
           {/* The code — only mentioned when it is actually the missing piece.
@@ -826,7 +939,7 @@ export default function Checkout() {
                     {offer.label ? `${offer.label} · ` : ''}
                     {offer.percent}% off
                   </strong>
-                  <span className="tiny muted">For your @{offer.domain} account · on the dishes</span>
+                  <span className="tiny muted">For {offerPass?.email ?? `your @${offer.domain} account`} · on the dishes</span>
                 </span>
                 <button
                   type="button"
@@ -842,22 +955,69 @@ export default function Checkout() {
                   🎓
                 </span>
                 <span className="coupon-body">
-                  <strong>
-                    {offer.label ? `${offer.label}? ` : ''}
-                    {offer.percent}% off coupon
-                  </strong>
-                  <span className="tiny muted">
-                    Continue with your @{offer.domain} Google account to unlock it.
-                  </span>
-                  <GoogleButton
-                    hint={offer.domain}
-                    onSignedIn={(u) => {
-                      if (!String(u.verifiedEmail ?? '').endsWith(`@${offer.domain}`)) {
-                        setError(`That Google account isn't an @${offer.domain} one — the coupon is for those only.`)
-                      }
-                    }}
-                    onError={(m) => setError(m)}
-                  />
+                  <button type="button" className="coupon-toggle" onClick={() => setCouponOpen((v) => !v)}>
+                    <strong>
+                      {offer.label ? `${offer.label}? ` : ''}
+                      {offer.percent}% off coupon
+                    </strong>
+                    <span aria-hidden>{couponOpen ? '▴' : 'Unlock ›'}</span>
+                  </button>
+                  {!couponOpen ? null : offer.codesOn === false ? (
+                    <span className="tiny muted">Unlocking by email is coming soon.</span>
+                  ) : !codeSent ? (
+                    <>
+                      <span className="tiny muted">Enter your @{offer.domain} email — we'll send you a code.</span>
+                      <span className="coupon-form">
+                        <input
+                          className="input"
+                          type="email"
+                          inputMode="email"
+                          autoComplete="email"
+                          placeholder={`yourname@${offer.domain}`}
+                          value={offerEmail}
+                          onChange={(e) => setOfferEmail(e.target.value)}
+                          onKeyDown={(e) => e.key === 'Enter' && void sendOfferCode()}
+                        />
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-accent"
+                          disabled={offerBusy || !offerEmail.trim().toLowerCase().endsWith(`@${offer.domain}`)}
+                          onClick={() => void sendOfferCode()}
+                        >
+                          {offerBusy ? 'Sending…' : 'Send code'}
+                        </button>
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="tiny muted">
+                        Enter the 6-digit code we sent to {offerEmail.trim()}.{' '}
+                        <button type="button" className="link-btn" onClick={() => setCodeSent(false)}>
+                          Change
+                        </button>
+                      </span>
+                      <input
+                        className="input coupon-code"
+                        autoFocus
+                        inputMode="numeric"
+                        autoComplete="one-time-code"
+                        pattern="[0-9]*"
+                        maxLength={6}
+                        placeholder="••••••"
+                        value={offerCode}
+                        disabled={offerBusy}
+                        onChange={(e) => {
+                          const digits = e.target.value.replace(/\D/g, '').slice(0, 6)
+                          setOfferCode(digits)
+                          if (digits.length === 6) void checkOfferCode(digits)
+                        }}
+                      />
+                      <button type="button" className="link-btn tiny" disabled={offerBusy} onClick={() => void sendOfferCode()}>
+                        Send it again
+                      </button>
+                    </>
+                  )}
+                  {offerNote && <span className="tiny coupon-error">{offerNote}</span>}
                 </span>
               </div>
             ))}
@@ -925,6 +1085,19 @@ export default function Checkout() {
           {lean && !payNow ? (
             <p className="tiny muted pay-picks-foot">{payLaterLabel} — nothing to pay now.</p>
           ) : (
+          collectOnly || upiOnly || prepaidOnly ? (
+            <div className="co-row co-pay">
+              <span className="co-row-icon" aria-hidden>
+                ⚡
+              </span>
+              <span className="co-row-main">
+                <strong>Pay by UPI</strong>
+                <span className="tiny muted">
+                  {canPayInApp ? 'GPay, PhonePe, Paytm — any UPI app' : `${cart.restaurantName} has not added a UPI ID yet`}
+                </span>
+              </span>
+            </div>
+          ) : (
           <>
           <p className="pay-head-label">Pay using</p>
           <div className="pay-picks">
@@ -961,13 +1134,8 @@ export default function Checkout() {
               </span>
               <strong>{payLaterLabel}</strong>
               <span className="pay-pick-sub">
-                {prepaidOnly
-                  ? isCar && options?.carPrepaidOnly && !options?.prepaidOnly
-                    ? 'Orders brought out to your car are paid for in the app'
-                    : (where === 'later' || where === 'takeaway') && !options?.prepaidOnly
-                      ? 'Takeaway orders are paid by UPI in the app'
-                    : 'Not tonight — the kitchen has closed, so these have to be paid for in the app'
-                  : isDelivery
+                {/* Only shown when cash is a real choice; a pay-first order gets the single UPI line instead. */}
+                {isDelivery
                   ? 'Cash or UPI when it reaches you'
                   : isCar
                     ? 'Cash or UPI at the car'
@@ -981,10 +1149,16 @@ export default function Checkout() {
           </div>
           <p className="tiny muted pay-picks-foot">{paySub}</p>
           </>
+          )
           )}
 
+          <div className="co-bar">
+          <div className="co-bar-total">
+            <strong>{money(payableCents)}</strong>
+            <span>{discountCents > 0 ? `you save ${money(discountCents)}` : 'total'}</span>
+          </div>
           <button
-            className="btn btn-accent btn-lg btn-block"
+            className="btn btn-accent btn-lg co-bar-btn"
             disabled={placing}
             onClick={() => {
               if (needsName) {
@@ -1034,6 +1208,7 @@ export default function Checkout() {
               `Place order · ${money(payableCents)}`
             )}
           </button>
+          </div>
 
           {!ready && !placing && (
             <p className="tiny muted center" style={{ marginTop: 10 }}>
