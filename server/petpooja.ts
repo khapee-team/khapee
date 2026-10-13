@@ -35,8 +35,18 @@ import { addonsOf } from './menu-options.ts'
 
 /** Live endpoints are per-integration; these are the documented dev ones. */
 const DEV = {
-  // As given in Petpooja's "API Guide for Placing Orders" (sandbox).
-  saveOrder: 'https://qle1yy2ydc.execute-api.ap-southeast-1.amazonaws.com/V1/save_order',
+  /*
+   * Save Order is on a different host from the rest, and only their Apiary
+   * reference (V2.1.0) says so — the PDF guide and the sandbox dashboard's own
+   * "Staging Endpoints" panel both print the qle1yy2ydc host for it.
+   *
+   * The wrong host is not a wrong host in any way that shows. It shares the
+   * authentication layer, so bad credentials are refused and good ones are
+   * accepted, and it answers {"success":"1","message":"Your order is saved."}
+   * to an order it has no intention of saving. The only tell is orderID coming
+   * back empty, and that an order placed this way exists nowhere afterwards.
+   */
+  saveOrder: 'https://47pfzh5sf2.execute-api.ap-southeast-1.amazonaws.com/V1/save_order',
   orderStatus: 'https://qle1yy2ydc.execute-api.ap-southeast-1.amazonaws.com/V1/update_order_status',
   fetchMenu: 'https://qle1yy2ydc.execute-api.ap-southeast-1.amazonaws.com/V1/mapped_restaurant_menus',
 }

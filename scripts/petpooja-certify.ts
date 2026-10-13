@@ -51,7 +51,14 @@ const restId = (process.env.PETPOOJA_REST_ID || '31zqndu7ar').trim()
 const appKey = (process.env.PETPOOJA_APP_KEY || '').trim()
 const appSecret = (process.env.PETPOOJA_APP_SECRET || '').trim()
 const accessToken = (process.env.PETPOOJA_ACCESS_TOKEN || '').trim()
-const base = (process.env.PETPOOJA_BASE_URL || 'https://qle1yy2ydc.execute-api.ap-southeast-1.amazonaws.com/V1').replace(/\/+$/, '')
+/*
+ * Two hosts, not one. Save Order lives on 47pfzh5sf2 and the menu lives on
+ * qle1yy2ydc — which only their Apiary reference states; the PDF guide and the
+ * dashboard both print the menu host for both. Sending an order to the wrong
+ * one is answered "Your order is saved." by a service that does not save it.
+ */
+const base = (process.env.PETPOOJA_BASE_URL || 'https://47pfzh5sf2.execute-api.ap-southeast-1.amazonaws.com/V1').replace(/\/+$/, '')
+const menuBase = (process.env.PETPOOJA_MENU_BASE_URL || 'https://qle1yy2ydc.execute-api.ap-southeast-1.amazonaws.com/V1').replace(/\/+$/, '')
 const callbackUrl = flag('--callback') || 'https://khapee.com/api/petpooja/sandbox-certification/callback'
 
 if (!dryRun && !asCurl && (!appKey || !appSecret || !accessToken)) {
@@ -85,7 +92,7 @@ async function loadMenu(): Promise<any> {
       return JSON.parse(row.last_menu_json)
     }
   }
-  const res = await fetch(`${base}/mapped_restaurant_menus`, {
+  const res = await fetch(`${menuBase}/mapped_restaurant_menus`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'app-key': appKey, 'app-secret': appSecret, 'access-token': accessToken },
     body: JSON.stringify({ restID: restId }),
