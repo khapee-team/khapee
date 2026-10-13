@@ -460,6 +460,9 @@ export function orderPayload(link: Link, order: any, round: Round, restaurant: a
                 amount: money(t.amountCents),
               })),
               item_discount: '0.00',
+              /* The combined rate, which their OrderItem table asks for beside
+                 the per-tax breakdown rather than only inside it. */
+              tax_percentage: String(l.taxes.reduce((n, t) => n + Number(t.ratePercent), 0)),
               price: money(l.unitCents),
               final_price: money(l.unitCents),
               quantity: String(l.quantity),
