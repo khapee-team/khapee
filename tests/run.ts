@@ -6246,6 +6246,26 @@ async function runTests() {
     ok('case 4: item prices stay as listed', p4.orderinfo.OrderInfo.Order.OrderItem.details[0].price === '100.00')
     ok('times go in Indian time, as their till reads them', d4.created_on === '2026-10-07 23:30:00' && d4.preorder_time === '23:30:00', d4)
 
+    /*
+     * A POS menu whose prices do not include their tax.
+     *
+     * Khapee's own do, and the payload said so unconditionally, which sent a
+     * total 5% short of what the till works out for an exclusive item — an
+     * order that does not add up, refused quietly rather than loudly. Every
+     * item in Petpooja's sandbox is configured this way.
+     */
+    const exclusive = buildRound(
+      [{ id: 1, name: 'Lemonade', quantity: 2, unit_price_cents: 10000, pos_item_id: 'LM1', pos_tax_ids: 'TX-C,TX-S' }],
+      new Map([['TX-C', { name: 'CGST', rateBp: 250 }], ['TX-S', { name: 'SGST', rateBp: 250 }]]),
+      { discountCents: 0, deliveryCents: 0, taxInclusive: false },
+    )
+    const pEx = orderPayload({ restId: 'x' } as any, { order_number: 'EX1', created_at: '2026-10-07 18:00:00' }, exclusive, {}, '')
+    const dEx = pEx.orderinfo.OrderInfo.Order.details
+    ok('tax-exclusive: the tax is charged on top, not found inside', dEx.tax_total === '10.00', dEx.tax_total)
+    ok('tax-exclusive: the total is the items plus that tax', dEx.total === '210.00', dEx.total)
+    ok('tax-exclusive: the line says so, so the till agrees', pEx.orderinfo.OrderInfo.Order.OrderItem.details[0].tax_inclusive === false)
+    ok('tax-inclusive is still the default for Khapee prices', p4.orderinfo.OrderInfo.Order.OrderItem.details[0].tax_inclusive === true)
+
     // Delivery and dine-in map onto their order types.
     const asDelivery = orderPayload(
       { restId: 'x' } as any,

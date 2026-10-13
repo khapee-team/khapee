@@ -240,6 +240,16 @@ export type Round = {
   taxDetails: { id: string; title: string; ratePercent: string; amountCents: number }[]
   /** Item prices − discount + delivery: exactly what the customer paid for this round. */
   totalCents: number
+  /**
+   * Whether the prices above already contain their tax.
+   *
+   * Khapee's do: a menu price is what the customer hands over. A Petpooja item
+   * carries its own answer in the menu push, as `tax_inclusive`, and it is not
+   * always the same one — every item in their sandbox is exclusive, where tax
+   * is added on top of the price. Sending the wrong one does not fail loudly;
+   * it sends a total the till disagrees with.
+   */
+  taxInclusive: boolean
 }
 
 /**
@@ -255,8 +265,10 @@ export type Round = {
 export function buildRound(
   items: any[],
   taxesById: Map<string, { name: string; rateBp: number }>,
-  opts: { discountCents: number; deliveryCents: number },
+  opts: { discountCents: number; deliveryCents: number; taxInclusive?: boolean },
 ): Round {
+  // Khapee's own prices include their tax; a POS menu says for itself.
+  const taxInclusive = opts.taxInclusive !== false
   const grossOf = (i: any) => i.unit_price_cents * i.quantity
   const gross = items.reduce((n, i) => n + grossOf(i), 0)
   const discountCents = Math.max(0, Math.min(gross, Math.round(opts.discountCents || 0)))
@@ -277,12 +289,23 @@ export function buildRound(
       .map((x) => x.trim())
       .filter((x) => taxesById.has(x))
     const totalBp = ids.reduce((n, id) => n + (taxesById.get(id)?.rateBp ?? 0), 0)
-    // Inclusive: the tax inside `net` at the combined rate, split by each rate.
-    const taxInside = totalBp > 0 ? Math.round(net - net / (1 + totalBp / 10000)) : 0
-    let left = taxInside
+    /*
+     * Inclusive, the tax is already inside `net` and is extracted from it.
+     * Exclusive, it is charged on top of `net` and raises the total. The
+     * difference on a 350 rupee kebab at 5% is 16.67 against 17.50 — small
+     * enough to read as a rounding quirk, and enough for a till to refuse the
+     * order for not adding up.
+     */
+    const taxCents =
+      totalBp > 0
+        ? taxInclusive
+          ? Math.round(net - net / (1 + totalBp / 10000))
+          : Math.round((net * totalBp) / 10000)
+        : 0
+    let left = taxCents
     const taxes = ids.map((id, n) => {
       const t = taxesById.get(id)!
-      const amount = n === ids.length - 1 ? left : Math.round((taxInside * t.rateBp) / totalBp)
+      const amount = n === ids.length - 1 ? left : Math.round((taxCents * t.rateBp) / totalBp)
       left -= amount
       const ratePercent = String(t.rateBp / 100)
       const sum = totals.get(id) ?? { title: t.name, ratePercent, amountCents: 0 }
@@ -311,13 +334,16 @@ export function buildRound(
 
   const taxDetails = [...totals.entries()].map(([id, t]) => ({ id, ...t }))
   const deliveryCents = Math.max(0, opts.deliveryCents || 0)
+  const taxTotalCents = taxDetails.reduce((n, t) => n + t.amountCents, 0)
   return {
     lines,
     discountCents,
     deliveryCents,
-    taxTotalCents: taxDetails.reduce((n, t) => n + t.amountCents, 0),
+    taxTotalCents,
     taxDetails,
-    totalCents: gross - discountCents + deliveryCents,
+    // Tax is only added to the total when it was not already in the prices.
+    totalCents: gross - discountCents + deliveryCents + (taxInclusive ? 0 : taxTotalCents),
+    taxInclusive,
   }
 }
 
@@ -426,7 +452,7 @@ export function orderPayload(link: Link, order: any, round: Round, restaurant: a
               id: l.id,
               name: l.name,
               gst_liability: 'restaurant',
-              tax_inclusive: true,
+              tax_inclusive: round.taxInclusive,
               item_tax: l.taxes.map((t) => ({
                 id: t.id,
                 name: t.name,

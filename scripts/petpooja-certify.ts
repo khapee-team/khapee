@@ -125,6 +125,13 @@ const variations = (i: any) => (Array.isArray(i.variation) ? i.variation.filter(
  * it would be certified as correct.
  */
 const sellable = (i: any) => paise(i.price) > 0 || variations(i).some((v: any) => paise(v.price) > 0)
+/*
+ * Whether this menu's prices already contain their tax, taken from the menu
+ * rather than assumed. Khapee's own prices do; every item in Petpooja's
+ * sandbox does not, and an order that adds the tax up the other way is a
+ * total the till disagrees with — which is not a rejection anybody sees.
+ */
+const menuTaxInclusive = items.some((i) => i.tax_inclusive === true || String(i.tax_inclusive) === '1')
 const live = items.filter((i) => on(i.active) && String(i.in_stock ?? '2') !== '0' && sellable(i))
 const addonLinks = (list: any) => (Array.isArray(list) ? list : []).filter((a: any) => groups.has(String(a.addon_group_id)))
 
@@ -225,7 +232,11 @@ const results: { n: number; title: string; orderId: string; petpoojaOrderId: str
 
 for (const c of cases) {
   const orderId = `KHP${c.n}${stamp}`
-  const round = buildRound(c.lines, taxes, { discountCents: c.discountCents ?? 0, deliveryCents: 0 })
+  const round = buildRound(c.lines, taxes, {
+    discountCents: c.discountCents ?? 0,
+    deliveryCents: 0,
+    taxInclusive: menuTaxInclusive,
+  })
   const now = new Date().toISOString().replace('T', ' ').slice(0, 19)
   const payload = orderPayload(
     link,
