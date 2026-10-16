@@ -234,7 +234,22 @@ if (missing.length) {
 
 const link = { restId, appKey, appSecret, accessToken } as any
 const stamp = (flag('--stamp') || Date.now().toString(36)).toUpperCase()
-const restaurant = { name: menu.restaurants?.[0]?.details?.restaurantname ?? 'Khapee sandbox', address: '', phone: '' }
+const details = menu.restaurants?.[0]?.details ?? {}
+const restaurant = {
+  name: details.restaurantname ?? 'Khapee sandbox',
+  address: details.address ?? '',
+  phone: details.contact ?? '',
+}
+/*
+ * How long the kitchen says it needs.
+ *
+ * A certification order carried min_prep_time 0, because nothing set a time to
+ * collect it and that is what "as soon as possible" works out to. The
+ * restaurant's own record says thirty minutes, and an order that asks a
+ * kitchen for food sooner than it has ever promised is a thing a till can
+ * reasonably refuse. Their number, where they give one.
+ */
+const prepMinutes = Math.max(0, Number(details.minimum_prep_time ?? details.min_prep_time ?? 0) || 0)
 const results: { n: number; title: string; orderId: string; petpoojaOrderId: string; ok: boolean; message: string }[] = []
 
 for (const c of cases) {
@@ -254,6 +269,11 @@ for (const c of cases) {
       service_mode: 'pickup',
       order_type: 'pickup',
       created_at: now,
+      // In the shape the rest of the app stores a time in — minutesUntil adds the
+      // zone itself, so a string that already carries one parses as nothing at all.
+      wanted_at: prepMinutes
+        ? new Date(Date.now() + prepMinutes * 60_000).toISOString().replace('T', ' ').slice(0, 19)
+        : '',
       payment_status: 'PAID',
       note: `Certification case ${c.n}: ${c.title}`,
     },
