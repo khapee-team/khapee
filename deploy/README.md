@@ -79,7 +79,7 @@ ssh -i ~/Downloads/ssh-key-*.key ubuntu@YOUR_SERVER_IP
 Then on the server:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/siyaAgrawal/khapee/main/deploy/setup.sh -o setup.sh
+curl -fsSL https://raw.githubusercontent.com/khapee-team/khapee/main/deploy/setup.sh -o setup.sh
 bash setup.sh
 ```
 

@@ -2,7 +2,7 @@
 # One-time setup of Khapee on a fresh Ubuntu server (Oracle Cloud Always Free,
 # or any Ubuntu 22.04/24.04 machine). Run as the default user, with sudo:
 #
-#   curl -fsSL https://raw.githubusercontent.com/siyaAgrawal/khapee/main/deploy/setup.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/khapee-team/khapee/main/deploy/setup.sh | bash
 #
 # The repository is private, so the first run makes a read-only deploy key and
 # stops to ask you to add it on GitHub; run the same command again afterwards.
