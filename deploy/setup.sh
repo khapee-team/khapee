@@ -9,7 +9,7 @@
 # Safe to run any number of times.
 set -euo pipefail
 
-REPO_SSH="git@github.com:siyaAgrawal/khapee.git"
+REPO_SSH="git@github.com:khapee-team/khapee.git"
 DIR="/opt/khapee"
 KEY="$HOME/.ssh/khapee_deploy"
 
@@ -63,7 +63,7 @@ github_says="$(ssh -o BatchMode=yes -T github-khapee 2>&1 || true)"
 if ! grep -q "successfully authenticated" <<<"$github_says"; then
   echo
   echo "  Add this key on GitHub, then run this script again:"
-  echo "  github.com/siyaAgrawal/khapee → Settings → Deploy keys → Add deploy key"
+  echo "  github.com/khapee-team/khapee → Settings → Deploy keys → Add deploy key"
   echo "  (title: khapee-server, leave 'Allow write access' OFF)"
   echo
   cat "$KEY.pub"

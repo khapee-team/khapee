@@ -89,7 +89,7 @@ the repository is public. If it fails, paste the file's contents instead:
 
 It stops twice, on purpose:
 
-1. **It prints a deploy key.** Add it at github.com/siyaAgrawal/khapee →
+1. **It prints a deploy key.** Add it at github.com/khapee-team/khapee →
    Settings → Deploy keys → Add deploy key (title `khapee-server`, write access
    **off**). Run `bash setup.sh` again.
 2. **It asks for the settings.** `nano /opt/khapee/deploy/.env` and fill in:
