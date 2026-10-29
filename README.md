@@ -1,10 +1,34 @@
-# Khapee — cafe & restaurant ordering
+# Khapee — order ahead, skip the wait
 
-A complete ordering system for cafes and restaurants: customers browse a menu, say where they
-are, and order. Staff watch orders land on a live board and move them through to completion.
+**What it is:** a food pre-ordering app for cafes and restaurants. Customers order from their
+phone before they arrive, from their table by scanning a QR code, or for pickup, and the kitchen
+sees each order on a live board and moves it through to ready.
 
-**Everything runs locally.** No external APIs, no API keys, no third-party accounts. SQLite for
-storage, local password hashing, locally generated and locally scanned QR codes.
+**Who it's for:** students and anyone short on time who would rather order ahead than queue, and
+the local cafes and restaurants that serve them.
+
+**Status:** live, with restaurants in Indore onboarded.
+
+**Live site:** <https://khapee.com>
+
+**License:** All rights reserved (see [LICENSE](LICENSE)).
+
+## Team
+
+Khapee was co-founded and built by two collaborators:
+
+- *Siya Agrawal* (@siyaAgrawal), Co-founder: [role, to be filled in by Siya]
+- *Shaurya Gupta* (@shauryagupta11890-spec), Co-founder: [role, to be filled in by Shaurya]
+
+## How it works
+
+Customers browse a menu, say where they are, and order. Staff watch orders land on a live board
+and move them through to completion. The app is a single Node process with a SQLite database,
+local password hashing, and QR codes generated and scanned in the browser. Payments go straight
+from the customer's UPI app to the restaurant; Khapee never holds money. Running it locally needs
+no API keys or third-party accounts. How the live site is hosted is in [DEPLOY.md](DEPLOY.md).
+
+The marketing website lives separately in [`website/`](website/) and does not talk to the app.
 
 ## Run it
 

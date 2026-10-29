@@ -194,9 +194,16 @@ export function importFile(file: string, merge = false) {
         if (clash) {
           console.warn(`  ! staff email ${email} already in use — no account created for ${entry.name}`)
         } else {
+          // No password in the file: make a random one and print it once, so a
+          // real restaurant never ends up on a shared, guessable default.
+          let password = entry.staff.password
+          if (!password) {
+            password = crypto.randomBytes(9).toString('base64url')
+            console.log(`  ✓ ${email} — generated password (shown once, pass it on securely): ${password}`)
+          }
           const userInfo = db
             .prepare(`INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, 'staff')`)
-            .run(entry.staff.name ?? entry.name, email, hashPassword(entry.staff.password ?? 'password123'))
+            .run(entry.staff.name ?? entry.name, email, hashPassword(password))
           db.prepare('INSERT INTO restaurant_staff (user_id, restaurant_id, job_title) VALUES (?, ?, ?)').run(
             Number(userInfo.lastInsertRowid),
             restaurantId,

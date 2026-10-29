@@ -1640,20 +1640,23 @@ for (const grant of GRANTS) {
  * Normally that path is random and read off the restaurant's own settings
  * screen. Nobody can open that screen — every route into the account is shut
  * (no password, no reset without SMTP, no Google client ID) — and the
- * integration cannot wait on it. So this one is written down here, which puts
- * it in the repository.
+ * integration cannot wait on it. So it is pinned from here.
  *
- * That is a real trade and it is made deliberately, for a sandbox cafe that
- * is closed, relays no orders, and exists to be certified against Petpooja's
- * test environment. ROTATE IT BEFORE THIS CAFE TAKES A REAL ORDER: clear
- * webhook_secret on its petpooja_links row and the next saveLink mints a
- * fresh one that lives nowhere but the database.
+ * The secret comes from the PETPOOJA_SANDBOX_WEBHOOK_SECRET environment
+ * variable, never from the repository (an earlier version kept it in this
+ * file; that value is public and must be treated as burnt). With the variable
+ * unset this block does nothing and the existing petpooja_links row is left
+ * exactly as it is.
  *
  * Boot-time and idempotent, like the access grants above: the row may not
  * exist yet when this first runs.
  */
-const SANDBOX_WEBHOOK = { slug: 'mr-beans-saket', restId: '31zqndu7ar', secret: 'y5mXYWiaJAGKtkGjxHumvZKsqwugF9bZ' }
-{
+const SANDBOX_WEBHOOK = {
+  slug: 'mr-beans-saket',
+  restId: '31zqndu7ar',
+  secret: process.env.PETPOOJA_SANDBOX_WEBHOOK_SECRET?.trim() ?? '',
+}
+if (SANDBOX_WEBHOOK.secret) {
   const cafe = db.prepare('SELECT id FROM restaurants WHERE slug = ?').get(SANDBOX_WEBHOOK.slug) as any
   if (cafe) {
     const link = db

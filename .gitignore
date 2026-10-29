@@ -38,3 +38,6 @@ bin/
 # without anyone pasting them into a chat, a commit or a shell history.
 .env.petpooja
 .env.local
+
+# Local Claude/editor launch settings
+.claude/

@@ -9,7 +9,7 @@
     "prepMinutes": 15,
     "isOpen": false,
     "tables": 4,
-    "staff": { "name": "Tinkus", "email": "tinkus@khapee.com", "password": "p6aX6ysAoVA", "title": "Owner" }
+    "staff": { "name": "Tinkus", "email": "tinkus@khapee.com", "title": "Owner" }
   },
   {
     "name": "Shwarma Grill",
@@ -24,7 +24,6 @@
     "staff": {
       "name": "Shwarma Grill",
       "email": "shwarmagrill@khapee.com",
-      "password": "IXY86Y6rSu4I",
       "title": "Owner"
     }
   },
@@ -41,7 +40,6 @@
     "staff": {
       "name": "Coffee Concept",
       "email": "coffeeconcept@khapee.com",
-      "password": "nmx3iyHwt6ac",
       "title": "Owner"
     }
   }
