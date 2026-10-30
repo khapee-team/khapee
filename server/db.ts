@@ -1553,6 +1553,12 @@ if (BACKED_UP) {
   dataFix('2026-10-10-mr-beans-saket-no-dine-in', () => {
     db.prepare("UPDATE restaurants SET accepts_dine_in = 0 WHERE slug = 'mr-beans-saket'").run()
   })
+  // Mr. Beans Saket opens on Khapee. Once only, so its owner can still close it.
+  dataFix('2026-10-31-mr-beans-saket-open', () => {
+    db.prepare(
+      "UPDATE restaurants SET is_open = 1, published_at = COALESCE(published_at, datetime('now')) WHERE slug = 'mr-beans-saket'",
+    ).run()
+  })
   dataFix('2026-09-28-delivery-off', () => {
     db.prepare('UPDATE restaurants SET accepts_delivery = 0').run()
     db.prepare('UPDATE delivery_areas SET is_active = 0').run()
