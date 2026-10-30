@@ -20,7 +20,7 @@ Khapee was co-founded and built by two collaborators:
 - *Siya Agrawal* (@siyaAgrawal), Co-founder
 - *Shaurya Gupta* (@shauryagupta11890-spec), Co-founder
 
-Siya and Shaurya worked together on Khapee at every stage, from research and product design to code and getting cafes on board.
+Siya and Shaurya worked together on Khapee, from research and product design to code and getting cafes on board.
 
 ## How it works
 
