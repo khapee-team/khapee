@@ -1,4 +1,4 @@
-# Khapee — order ahead, skip the wait
+Product, design and user research# Khapee — order ahead, skip the wait
 
 **What it is:** a food pre-ordering app for cafes and restaurants. Customers order from their
 phone before they arrive, from their table by scanning a QR code, or for pickup, and the kitchen
@@ -18,7 +18,7 @@ the local cafes and restaurants that serve them.
 Khapee was co-founded and built by two collaborators:
 
 - *Siya Agrawal* (@siyaAgrawal), Co-founder: [role, to be filled in by Siya]
-- *Shaurya Gupta* (@shauryagupta11890-spec), Co-founder: [role, to be filled in by Shaurya]
+- *Shaurya Gupta* (@shauryagupta11890-spec), Co-founder: Product, design and user research
 
 ## How it works
 
