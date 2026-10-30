@@ -1559,6 +1559,10 @@ if (BACKED_UP) {
       "UPDATE restaurants SET is_open = 1, published_at = COALESCE(published_at, datetime('now')) WHERE slug = 'mr-beans-saket'",
     ).run()
   })
+  // Live now, so a later close reads "Closed" and not "Coming soon".
+  dataFix('2026-10-31-mr-beans-saket-not-coming-soon', () => {
+    db.prepare("UPDATE restaurants SET coming_soon = 0 WHERE slug = 'mr-beans-saket'").run()
+  })
   dataFix('2026-09-28-delivery-off', () => {
     db.prepare('UPDATE restaurants SET accepts_delivery = 0').run()
     db.prepare('UPDATE delivery_areas SET is_active = 0').run()
