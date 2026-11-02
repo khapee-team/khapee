@@ -1567,6 +1567,27 @@ if (BACKED_UP) {
     db.prepare('UPDATE restaurants SET accepts_delivery = 0').run()
     db.prepare('UPDATE delivery_areas SET is_active = 0').run()
   })
+  /*
+   * Every restaurant with something to sell takes orders, not only Revery.
+   *
+   * Siya's decision (2 Nov 2026), so that somebody who arrives from her
+   * portfolio can order anywhere. It undoes 2026-09-26-only-revery-open for
+   * every place with a dish on sale, knowing that most of them have no one
+   * signed in to watch their board yet. Once only, so an owner who closes from
+   * the dashboard stays closed.
+   *
+   * Left shut: places with no dish on sale, which would open onto an empty
+   * menu, and the Petpooja sandbox, which is not a café. How each place takes
+   * orders is unchanged, and delivery stays off.
+   */
+  dataFix('2026-11-02-open-every-restaurant', () => {
+    db.prepare(
+      `UPDATE restaurants
+          SET is_open = 1, published_at = COALESCE(published_at, datetime('now'))
+        WHERE slug <> 'petpooja-sandbox'
+          AND EXISTS (SELECT 1 FROM menu_items m WHERE m.restaurant_id = restaurants.id AND m.is_available = 1)`,
+    ).run()
+  })
 }
 
 /*
