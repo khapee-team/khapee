@@ -1,5 +1,5 @@
 /**
- * Sample insights: four months of made-up orders at five cafés, shaped to
+ * Sample insights: about three hundred made-up meals over four months at five cafés, shaped to
  * show how a new way of ordering is taken up — the S-curve of adoption, the
  * hesitation at checkout, cash slowly giving way to UPI, staff getting quick,
  * and habit bringing people back. Illustrative only; none of it is real.
@@ -37,11 +37,11 @@ function seeded(seed: number) {
  *   resist  how much its regulars hold back — cash, staff, habit (0..1)
  */
 const PLACES: { slug: string; launch: number; size: number; resist: number }[] = [
-  { slug: 'revery', launch: 120, size: 9, resist: 0.15 }, // young crowd, early adopters
-  { slug: 'mr-beans-saket', launch: 75, size: 7, resist: 0.3 },
-  { slug: 'shyam-sandwich', launch: 95, size: 6, resist: 0.55 }, // street-side, cash-first
-  { slug: '28-paarroo', launch: 60, size: 4, resist: 0.35 },
-  { slug: 'jain-shree', launch: 45, size: 3, resist: 0.75 }, // older, traditional regulars
+  { slug: 'revery', launch: 120, size: 1.45, resist: 0.15 }, // young crowd, early adopters
+  { slug: 'mr-beans-saket', launch: 75, size: 1.12, resist: 0.3 },
+  { slug: 'shyam-sandwich', launch: 95, size: 1.0, resist: 0.55 }, // street-side, cash-first
+  { slug: '28-paarroo', launch: 60, size: 0.75, resist: 0.35 },
+  { slug: 'jain-shree', launch: 45, size: 0.66, resist: 0.75 }, // older, traditional regulars
 ]
 const DAYS = 120
 
@@ -91,6 +91,13 @@ function sample(): Database.Database {
   }
   const sqlTime = (t: Date) => t.toISOString().replace('T', ' ').slice(0, 19)
   const logistic = (x: number) => 1 / (1 + Math.exp(-x))
+  /** A day's count around an average, the way real arrivals scatter. */
+  const poisson = (mean: number) => {
+    const limit = Math.exp(-mean)
+    let k = 0
+    for (let p = rand(); p > limit; p *= rand()) k++
+    return k
+  }
   /** A moment on a given day, at an India-time hour, stored as UTC. */
   const momentOn = (daysAgo: number, hour: number) => {
     const at = new Date(now - daysAgo * 86400000)
@@ -158,7 +165,7 @@ function sample(): Database.Database {
       const weekday = new Date(now - daysAgo * 86400000).getUTCDay()
       const weekend = weekday === 0 || weekday === 6 ? 1.4 : 1
       const expected = place.size * (0.12 + 0.88 * familiar) * (1 - 0.35 * place.resist) * weekend
-      const orders = Math.max(0, Math.round(expected + (rand() - 0.5) * 2.2))
+      const orders = poisson(expected)
 
       // How many look, and how many get as far as checkout, for that many orders.
       const conversion = 0.1 + 0.3 * familiar * (1 - 0.5 * place.resist)
@@ -260,6 +267,8 @@ function sample(): Database.Database {
   return d
 }
 
+/** The sample database itself, for exporting it (scripts/sample-report). */
+export const demoDatabase = () => sample()
 export const demoInsights = (opts: { days: number; restaurantId?: number | null }) => insights(opts, sample())
 export const demoLive = () => liveCount(sample())
 export const demoOrders = (opts: Parameters<typeof orderList>[0]) => orderList(opts, sample())
