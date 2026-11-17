@@ -37,11 +37,11 @@ function seeded(seed: number) {
  *   resist  how much its regulars hold back — cash, staff, habit (0..1)
  */
 const PLACES: { slug: string; launch: number; size: number; resist: number }[] = [
-  { slug: 'revery', launch: 120, size: 1.45, resist: 0.15 }, // young crowd, early adopters
-  { slug: 'mr-beans-saket', launch: 75, size: 1.12, resist: 0.3 },
-  { slug: 'shyam-sandwich', launch: 95, size: 1.0, resist: 0.55 }, // street-side, cash-first
-  { slug: '28-paarroo', launch: 60, size: 0.75, resist: 0.35 },
-  { slug: 'jain-shree', launch: 45, size: 0.66, resist: 0.75 }, // older, traditional regulars
+  { slug: 'revery', launch: 120, size: 1.29, resist: 0.15 }, // young crowd, early adopters
+  { slug: 'mr-beans-saket', launch: 75, size: 0.997, resist: 0.3 },
+  { slug: 'shyam-sandwich', launch: 95, size: 0.89, resist: 0.55 }, // street-side, cash-first
+  { slug: '28-paarroo', launch: 60, size: 0.667, resist: 0.35 },
+  { slug: 'jain-shree', launch: 45, size: 0.587, resist: 0.75 }, // older, traditional regulars
 ]
 const DAYS = 120
 
