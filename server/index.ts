@@ -135,6 +135,7 @@ function insightsGate(req: any, res: any): boolean {
  * The same page with sample orders in it — /insights/demo — for showing what
  * insights looks like with a month of business. Read from a separate database
  * in memory (see insights-demo.ts); the real numbers are never touched.
+ * Open to anyone, no sign-in: it is all made up. /insights/real stays gated.
  */
 const demoQuery = (req: any) => ({
   days: Number(req.query.days ?? 30),
@@ -146,20 +147,16 @@ app.get('/api/insights/export', (req: any, res) => {
   res.type('text/csv').send(exportCsv())
 })
 app.get('/api/insights/demo', (req: any, res) => {
-  if (!insightsGate(req, res)) return
   res.set('Cache-Control', 'no-store')
   res.json({ ...demoInsights(demoQuery(req)), hiddenOrders: 0, sample: true })
 })
 app.get('/api/insights/demo/live', (req: any, res) => {
-  if (!insightsGate(req, res)) return
   res.json(demoLive())
 })
 app.get('/api/insights/demo/orders', (req: any, res) => {
-  if (!insightsGate(req, res)) return
   res.json(demoOrders({ ...demoQuery(req), which: 'ahead', limit: req.query.limit ? Number(req.query.limit) : 50, offset: req.query.offset ? Number(req.query.offset) : 0 }))
 })
 app.get('/api/insights/demo/visits', (req: any, res) => {
-  if (!insightsGate(req, res)) return
   res.json(demoVisits(demoQuery(req)))
 })
 app.get('/api/insights/live', (req: any, res) => {
